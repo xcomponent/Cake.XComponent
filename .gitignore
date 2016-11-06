@@ -1,1 +1,7 @@
-*.dll
+packages
+bin
+obj
+tools/*/*
+.vs
+*.DotSettings.user
+*.md5sum

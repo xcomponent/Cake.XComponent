@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cake.XComponent</name>
+    </assembly>
+    <members>
+        <member name="T:Cake.XComponent.XcToolsExtensions">
+            <summary>
+            Cake Extension for XCTools
+            </summary>
+        </member>
+    </members>
+</doc>
