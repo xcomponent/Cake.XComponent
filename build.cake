@@ -20,13 +20,16 @@ Task("Build")
 Task("Test")
   .Does(() =>
 {
-  Information("Hello World!");
+	Information("Hello World!");
 });
 
 Task("Deploy")
   .Does(() =>
 {
-  Information("Hello World!");
+	NuGetPack("Cake.XComponent.dll.nuspec", new NuGetPackSettings()
+    { 
+      OutputDirectory = @"."
+    });
 });
 
 RunTarget(target);
