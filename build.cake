@@ -26,16 +26,21 @@ Task("Test")
 Task("Package")
   .Does(() =>
 {
+	CreateDirectory("nuget");
 	NuGetPack("Cake.XComponent.nuspec", new NuGetPackSettings()
     { 
-      OutputDirectory = @"."
+      OutputDirectory = @"./nuget"
     });
 });
 
 Task("Deploy")
   .Does(() =>
 {
-	Information("Hello World!");
+	var package = "./nuget/Cake.XComponent.1.0.0.nupkg";
+	NuGetPush(package, new NuGetPushSettings {
+		Source = "https://www.nuget.org/packages/Cake.XComponent/",
+		ApiKey = "119a98a7-d371-40a2-8553-fdaaf7dcdeca"
+	});
 });
 
 

@@ -5,3 +5,4 @@ tools/*/*
 .vs
 *.DotSettings.user
 *.md5sum
+*.nupkg
