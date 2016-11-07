@@ -5,15 +5,16 @@
     <version>1.0.0</version>
     <authors>XComponent</authors>
     <owners>XComponent</owners>
-    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
-    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
-    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <projectUrl>https://github.com/xcomponent/Cake.XComponent</projectUrl>
+    <iconUrl>https://pbs.twimg.com/profile_images/561850461309771776/B7MGXhhb.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Package description</description>
-    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <description>Cake addin for XComponent</description>
     <copyright>Copyright 2016</copyright>
-    <tags>Tag1 Tag2</tags>
+    <tags>Cake XComponent Build</tags>
     <dependencies>
     </dependencies>
   </metadata>
+  <files>
+  <file src="Cake.XComponent\bin\Release\Cake.XComponent.dll"/> 
+</files>
 </package>
