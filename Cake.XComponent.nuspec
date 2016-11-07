@@ -15,6 +15,6 @@
     </dependencies>
   </metadata>
   <files>
-  <file src="Cake.XComponent\bin\Release\Cake.XComponent.dll"/> 
+  <file src="Cake.XComponent\bin\Debug\Cake.XComponent.dll"/> 
 </files>
 </package>
