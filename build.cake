@@ -1,3 +1,5 @@
+#tool "nuget:?package=NUnit.Runners&version=2.6.4"
+
 var target = Argument("target", "Build");
 
 Task("Clean")
@@ -20,7 +22,8 @@ Task("Build")
 Task("Test")
   .Does(() =>
 {
-	Information("Hello World!");
+	var assemblies = GetFiles("./**/bin/Debug/*.Test.dll");
+	NUnit(assemblies);
 });
 
 Task("Package")

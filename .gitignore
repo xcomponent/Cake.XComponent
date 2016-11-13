@@ -8,3 +8,4 @@ tools/*/*
 *.nupkg
 *.ncrunchsolution.user
 _NCrunch*
+/TestResult.xml
