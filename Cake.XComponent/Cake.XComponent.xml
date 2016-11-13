@@ -4,10 +4,29 @@
         <name>Cake.XComponent</name>
     </assembly>
     <members>
-        <member name="T:Cake.XComponent.XcToolsExtensions">
+        <member name="T:Cake.XComponent.Exception.XComponentException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Cake.XComponent.Exception.XComponentException.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="T:Cake.XComponent.XcToolsAliases">
             <summary>
             Cake Extension for XCTools
             </summary>
+        </member>
+        <member name="M:Cake.XComponent.XcToolsAliases.XcTools(Cake.Core.ICakeContext,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="arguments"></param>
+            <exception cref="N:Cake.XComponent.Exception"></exception>
         </member>
     </members>
 </doc>

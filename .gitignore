@@ -6,3 +6,5 @@ tools/*/*
 *.DotSettings.user
 *.md5sum
 *.nupkg
+*.ncrunchsolution.user
+_NCrunch*
