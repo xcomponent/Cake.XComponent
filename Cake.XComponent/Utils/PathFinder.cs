@@ -8,6 +8,7 @@ namespace Cake.XComponent.Utils
 {
     internal class PathFinder
     {
+        internal const string XcStudioExe = "XComponent.XCTools.exe";
         internal const string XcToolsExe = "XComponent.XCTools.exe";
         private const string CakeToolsDirectory = "tools";
         private readonly ICakeLog _cakeLog;
@@ -30,6 +31,16 @@ namespace Cake.XComponent.Utils
         public PathFinder(ICakeLog cakeLog)
         {
             _cakeLog = cakeLog;
+        }
+
+        internal string FindXcStudio()
+        {
+            var xcToolsPath = FindExe(XcStudioExe);
+            _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
+                $@"XcStudio auto-detection: using XcStudio version '{FileVersionInfo.GetVersionInfo(xcToolsPath)
+                    .ProductVersion}' from {xcToolsPath}");
+
+            return xcToolsPath;
         }
 
         internal string FindXcTools()

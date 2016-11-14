@@ -12,13 +12,19 @@ namespace Cake.XComponent
         private readonly ICakeContext _context;
         internal string XcToolsPath { get; }
         
-        public XcTools(ICakeContext context)
+        internal XcTools(ICakeContext context)
         {
             _context = context;
             XcToolsPath = new PathFinder(context.Log).FindXcTools();
         }
+        
+        public void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
+        {
+            var arguments = $"--build --project={project} --compilationmode={compiltationMode} --env={environment}  --vs={visualStudioVersion} {additionalArguments}";
+            ExecuteCommand(arguments);
+        }
 
-        public void ExecuteCommand(string arguments)
+        private void ExecuteCommand(string arguments)
         {
             if (!File.Exists(XcToolsPath))
             {

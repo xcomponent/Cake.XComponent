@@ -22,6 +22,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>Cake.XComponent.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -48,6 +49,7 @@
     <Compile Include="Exception\XComponentException.cs" />
     <Compile Include="Utils\PathFinder.cs" />
     <Compile Include="XcStudio.cs" />
+    <Compile Include="XcStudioAliases.cs" />
     <Compile Include="XcTools.cs" />
     <Compile Include="XcToolsAliases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -8,7 +8,7 @@ using NUnit.Framework;
 namespace Cake.XComponent.Test
 {
     [TestFixture]
-    public class XcToolsTest : XComponentTestBase
+    public class XcToolsAliasesTest : XComponentTestBase
     {
         private string _xcToolsDirectory;
 
@@ -31,34 +31,28 @@ namespace Cake.XComponent.Test
         }
 
         [Test]
-        public void IfXcToolsIsProperlyExecuted_ExecuteCommand_ShouldReturn()
+        public void IfXcToolsIsProperlyExecuted_XcToolsBuild_ShouldReturn()
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcToolsDirectory, PathFinder.XcToolsExe);
             var cakeContext = Substitute.For<ICakeContext>();
-            var xcTools = new XcTools(cakeContext);
-            xcTools.ExecuteCommand("-arf -fai");
+            cakeContext.XcToolsBuild("", "", "", "", "");
         }
-
+        
         [Test]
         [ExpectedException(typeof(XComponentException))]
-        public void IfXcToolsIsNotPresent_ExecuteCommand_ShouldThrowAnException()
+        public void IfXcToolsIsNotPresent_XcToolsBuild_ShouldThrowAnException()
         {
-            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcToolsDirectory, PathFinder.XcToolsExe);
             var cakeContext = Substitute.For<ICakeContext>();
-            var xcTools = new XcTools(cakeContext);
-            Directory.Delete(_xcToolsDirectory, true);
-            xcTools.ExecuteCommand("-arf -fai");
+            cakeContext.XcToolsBuild("", "", "", "", "");
         }
-
-
+        
         [Test]
         [ExpectedException(typeof(XComponentException))]
-        public void IfXcToolsIsPresentButExecutionFails_ExecuteCommand_ShouldThrowAnException()
+        public void IfXcToolsIsPresentButExecutionFails_XcToolsBuild_ShouldThrowAnException()
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcToolsDirectory, PathFinder.XcToolsExe);
             var cakeContext = Substitute.For<ICakeContext>();
-            var xcTools = new XcTools(cakeContext);
-            xcTools.ExecuteCommand("-arf -fail");
+            cakeContext.XcToolsBuild("", "", "", "", "--fail");
         }
     }
 }
