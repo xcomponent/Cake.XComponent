@@ -22,11 +22,11 @@
         </member>
         <member name="M:Cake.XComponent.XcStudioAliases.XcStudioCreateLauncher(Cake.Core.ICakeContext,System.String,System.String)">
             <summary>
-            
+            This method creates a .bat file to easily launch a XComponent project using the version of XComponent Studio found in the tools folder.
             </summary>
-            <param name="context"></param>
-            <param name="projectPath"></param>
-            <param name="output"></param>
+            <param name="context">The Cake Context</param>
+            <param name="projectPath">The path of the project to launch with XComponent Studio</param>
+            <param name="output">The output path to write the launcher</param>
         </member>
         <member name="T:Cake.XComponent.XcToolsAliases">
             <summary>
@@ -35,14 +35,14 @@
         </member>
         <member name="M:Cake.XComponent.XcToolsAliases.XcToolsBuild(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            
+            This method builds the XComponent project using the version of XComponent Tools found in the tools folder.
             </summary>
-            <param name="context"></param>
+            <param name="context">The Cake Context</param>
             <param name="project"></param>
-            <param name="compiltationMode"></param>
-            <param name="environment"></param>
-            <param name="visualStudioVersion"></param>
-            <param name="additionalArguments"></param>
+            <param name="compiltationMode">The compilation mode (Debug/Release)</param>
+            <param name="environment">Th XComponent environment (Dev/Prod/...)</param>
+            <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
+            <param name="additionalArguments">Additional arguments pass to XComponent Tools</param>
         </member>
     </members>
 </doc>

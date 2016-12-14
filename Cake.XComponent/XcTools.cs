@@ -17,8 +17,8 @@ namespace Cake.XComponent
             _context = context;
             XcToolsPath = new PathFinder(context.Log).FindXcTools();
         }
-        
-        public void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
+
+        internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
         {
             var arguments = $"--build --project={project} --compilationmode={compiltationMode} --env={environment}  --vs={visualStudioVersion} {additionalArguments}";
             ExecuteCommand(arguments);

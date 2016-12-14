@@ -16,7 +16,7 @@ namespace Cake.XComponent
             XcStudioPath = new PathFinder(context.Log).FindXcStudio();
         }
 
-        public void CreateLauncher(string projectPath, string output)
+        internal void CreateLauncher(string projectPath, string output)
         {
             var outputDirectory = string.IsNullOrEmpty(output) ? Directory.GetCurrentDirectory() : output;
 

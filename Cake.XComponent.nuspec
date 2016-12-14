@@ -2,7 +2,6 @@
 <package >
   <metadata>
     <id>Cake.XComponent</id>
-    <version>1.0.0</version>
     <authors>XComponent</authors>
     <owners>XComponent</owners>
     <projectUrl>https://github.com/xcomponent/Cake.XComponent</projectUrl>
@@ -15,6 +14,7 @@
     </dependencies>
   </metadata>
   <files>
-  <file src="Cake.XComponent\bin\Debug\Cake.XComponent.dll"/> 
+  <file src="Cake.XComponent\bin\Release\Cake.XComponent.dll"/> 
+  <file src="Cake.XComponent\bin\Release\Cake.XComponent.xml"/> 
 </files>
 </package>

@@ -1,6 +1,8 @@
 #tool "nuget:?package=NUnit.Runners&version=2.6.4"
 
 var target = Argument("target", "Build");
+var configuration = Argument("configuration", "Release");
+var packageVersion = Argument("PackageVersion", "8.8.8");
 
 Task("Clean")
     .Does(() =>
@@ -16,7 +18,7 @@ Task("Build")
   .Does(() =>
 {
 	NuGetRestore(GetFiles("Cake.XComponent.sln"), new NuGetRestoreSettings { NoCache = true });
-	MSBuild("Cake.XComponent.sln");
+	MSBuild("Cake.XComponent.sln", new MSBuildSettings { Configuration = configuration });
 });
 
 Task("Test")
@@ -32,14 +34,15 @@ Task("Package")
 	CreateDirectory("nuget");
 	NuGetPack("Cake.XComponent.nuspec", new NuGetPackSettings()
     { 
-      OutputDirectory = @"./nuget"
+      OutputDirectory = @"./nuget",
+	  Version = packageVersion
     });
 });
 
 Task("Deploy")
   .Does(() =>
 {
-	var package = "./nuget/Cake.XComponent.1.0.0.nupkg";
+	var package = "./nuget/Cake.XComponent." + packageVersion + ".nupkg";
 	NuGetPush(package, new NuGetPushSettings {
 		Source = "https://www.nuget.org/packages/Cake.XComponent/",
 		ApiKey = "119a98a7-d371-40a2-8553-fdaaf7dcdeca"
