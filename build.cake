@@ -44,7 +44,7 @@ Task("Deploy")
 {
 	var package = "./nuget/Cake.XComponent." + packageVersion + ".nupkg";
 	NuGetPush(package, new NuGetPushSettings {
-		Source = "https://www.nuget.org/packages/Cake.XComponent/",
+		Source = "https://www.nuget.org/api/v2/package",
 		ApiKey = "119a98a7-d371-40a2-8553-fdaaf7dcdeca"
 	});
 });
