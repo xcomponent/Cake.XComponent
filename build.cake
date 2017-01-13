@@ -24,7 +24,7 @@ Task("Build")
 Task("Test")
   .Does(() =>
 {
-	var assemblies = GetFiles("./**/bin/Debug/*.Test.dll");
+	var assemblies = GetFiles("./**/bin/*/*.Test.dll");
 	NUnit(assemblies);
 });
 
