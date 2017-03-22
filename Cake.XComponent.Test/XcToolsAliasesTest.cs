@@ -12,7 +12,7 @@ namespace Cake.XComponent.Test
     {
         private string _xcToolsDirectory;
 
-        [SetUp]
+        [TestFixtureSetUp]
         public void SetUp()
         {
             var toolsDirectory = Path.Combine(PathFinder.WorkingDirectory, "tools");
@@ -21,7 +21,7 @@ namespace Cake.XComponent.Test
             Directory.CreateDirectory(_xcToolsDirectory);
         }
 
-        [TearDown]
+        [TestFixtureTearDown]
         public void TearDown()
         {
             if (Directory.Exists(_xcToolsDirectory))
