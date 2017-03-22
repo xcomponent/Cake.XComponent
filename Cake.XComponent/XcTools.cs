@@ -28,6 +28,13 @@ namespace Cake.XComponent
             ExecuteCommand(arguments);
         }
 
+        internal void ExportRuntimes(string project, string output, string compiltationMode = "Debug", string environment = "Dev", bool keepFolderContent = false, string additionalArguments = "")
+        {
+            var keepFolderContentArgument = keepFolderContent ? "--keepfoldercontent " : string.Empty;
+            var arguments = $"--exportRuntimes --project={project} --compilationmode={compiltationMode} --env={environment} {keepFolderContentArgument}--output={output} {additionalArguments}";
+            ExecuteCommand(arguments);
+        }
+
         internal void ExecuteCommand(string arguments)
         {
             if (!File.Exists(_xcToolsPath))

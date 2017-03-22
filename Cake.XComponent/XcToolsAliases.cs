@@ -24,11 +24,11 @@ namespace Cake.XComponent
         /// This method builds the XComponent project using the version of XComponent Tools found in the tools folder.
         /// </summary>
         /// <param name="context">The Cake Context</param>
-        /// <param name="project"></param>
+        /// <param name="project">The project to build</param>
         /// <param name="compiltationMode">The compilation mode (Debug/Release)</param>
-        /// <param name="environment">Th XComponent environment (Dev/Prod/...)</param>
+        /// <param name="environment">The XComponent environment (Dev/Prod/...)</param>
         /// <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
-        /// <param name="additionalArguments">Additional arguments pass to XComponent Tools</param>
+        /// <param name="additionalArguments">Additional arguments to pass to XComponent Tools</param>
         [CakeMethodAlias]
         public static void XcToolsBuild(this ICakeContext context, string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
         {
@@ -36,10 +36,26 @@ namespace Cake.XComponent
         }
 
         /// <summary>
+        /// This method exports runtimes for an XComponent project using the version of XComponent Tools found in the tools folder.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="project">The project to export runtimes for</param>
+        /// <param name="output">The folder where to export runtimes</param>
+        /// <param name="compiltationMode">The compilation mode (Debug/Release)</param>
+        /// <param name="environment">The XComponent environment (Dev/Prod/...)</param>
+        /// <param name="keepFolderContent">A flag to control whether to ovewrite folder content or not</param>
+        /// <param name="additionalArguments">Additional arguments to pass to XComponent Tools</param>
+        [CakeMethodAlias]
+        public static void XcToolsExportRuntimes(this ICakeContext context, string project, string output, string compiltationMode = "Debug", string environment = "Dev", bool keepFolderContent = false, string additionalArguments = "")
+        {
+            new XcTools(context).ExportRuntimes(project, output, compiltationMode, environment, keepFolderContent, additionalArguments);
+        }
+
+        /// <summary>
         /// This method executes XcTools passing arguments
         /// </summary>
         /// <param name="context">The Cake Context</param>
-        /// <param name="arguments"></param>
+        /// <param name="arguments">Arguments to pass to XComponent Tools</param>
         [CakeMethodAlias]
         public static void XcToolsExecuteCommand(this ICakeContext context, string arguments)
         {
