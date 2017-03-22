@@ -10,6 +10,17 @@ namespace Cake.XComponent
     public static class XcStudioAliases
     {
         /// <summary>
+        /// This method sets the path of XcStudio that will be used by all other commands.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="xcStudioPath">The XcStudio Path</param>
+        [CakeMethodAlias]
+        public static void SetXcStudioPath(this ICakeContext context, string xcStudioPath)
+        {
+            XcStudio.XcStudioPath = xcStudioPath;
+        }
+
+        /// <summary>
         /// This method creates a .bat file to easily launch a XComponent project using the version of XComponent Studio found in the tools folder.
         /// </summary>
         /// <param name="context">The Cake Context</param>

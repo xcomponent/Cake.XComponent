@@ -10,12 +10,16 @@ namespace Cake.XComponent
     internal sealed class XcTools
     {
         private readonly ICakeContext _context;
-        internal string XcToolsPath { get; }
-        
+        private readonly string _xcToolsPath;
+
+        internal static string XcToolsPath { get; set; }
+
         internal XcTools(ICakeContext context)
         {
             _context = context;
-            XcToolsPath = new PathFinder(context.Log).FindXcTools();
+            _xcToolsPath = string.IsNullOrEmpty(XcToolsPath)
+                ? new PathFinder(context.Log).FindXcTools()
+                : XcToolsPath;
         }
 
         internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
@@ -24,18 +28,18 @@ namespace Cake.XComponent
             ExecuteCommand(arguments);
         }
 
-        private void ExecuteCommand(string arguments)
+        internal void ExecuteCommand(string arguments)
         {
-            if (!File.Exists(XcToolsPath))
+            if (!File.Exists(_xcToolsPath))
             {
-                throw new XComponentException($"XcTools not found at {XcToolsPath}");
+                throw new XComponentException($"XcTools not found at {_xcToolsPath}");
             }
 
             var process = new Process
             {
                 StartInfo =
                 {
-                    FileName = XcToolsPath,
+                    FileName = _xcToolsPath,
                     Arguments = arguments,
                     UseShellExecute = false,
                     CreateNoWindow = true,

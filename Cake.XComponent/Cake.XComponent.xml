@@ -20,6 +20,13 @@
             Cake Extension for XComponent Studio
             </summary>
         </member>
+        <member name="M:Cake.XComponent.XcStudioAliases.SetXcStudioPath(Cake.Core.ICakeContext,System.String)">
+            <summary>
+            This method sets the path of XcStudio that will be used by all other commands.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="xcStudioPath">The XcStudio Path</param>
+        </member>
         <member name="M:Cake.XComponent.XcStudioAliases.XcStudioCreateLauncher(Cake.Core.ICakeContext,System.String,System.String)">
             <summary>
             This method creates a .bat file to easily launch a XComponent project using the version of XComponent Studio found in the tools folder.
@@ -33,6 +40,13 @@
             Cake Extension for XComponent Tools
             </summary>
         </member>
+        <member name="M:Cake.XComponent.XcToolsAliases.SetXcToolsPath(Cake.Core.ICakeContext,System.String)">
+            <summary>
+            This method sets the path of XcTools that will be used by all other commands.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="xcToolsPath">The XcTools Path</param>
+        </member>
         <member name="M:Cake.XComponent.XcToolsAliases.XcToolsBuild(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             This method builds the XComponent project using the version of XComponent Tools found in the tools folder.
@@ -43,6 +57,13 @@
             <param name="environment">Th XComponent environment (Dev/Prod/...)</param>
             <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
             <param name="additionalArguments">Additional arguments pass to XComponent Tools</param>
+        </member>
+        <member name="M:Cake.XComponent.XcToolsAliases.XcToolsExecuteCommand(Cake.Core.ICakeContext,System.String)">
+            <summary>
+            This method executes XcTools passing arguments
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="arguments"></param>
         </member>
     </members>
 </doc>

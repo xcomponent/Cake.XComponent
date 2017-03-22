@@ -10,6 +10,17 @@ namespace Cake.XComponent
     public static class XcToolsAliases
     {
         /// <summary>
+        /// This method sets the path of XcTools that will be used by all other commands.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="xcToolsPath">The XcTools Path</param>
+        [CakeMethodAlias]
+        public static void SetXcToolsPath(this ICakeContext context, string xcToolsPath)
+        {
+            XcTools.XcToolsPath = xcToolsPath;
+        }
+
+        /// <summary>
         /// This method builds the XComponent project using the version of XComponent Tools found in the tools folder.
         /// </summary>
         /// <param name="context">The Cake Context</param>
@@ -22,6 +33,17 @@ namespace Cake.XComponent
         public static void XcToolsBuild(this ICakeContext context, string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
         {
             new XcTools(context).Build(project, compiltationMode, environment, visualStudioVersion, additionalArguments);
+        }
+
+        /// <summary>
+        /// This method executes XcTools passing arguments
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="arguments"></param>
+        [CakeMethodAlias]
+        public static void XcToolsExecuteCommand(this ICakeContext context, string arguments)
+        {
+            new XcTools(context).ExecuteCommand(arguments);
         }
     }
 }

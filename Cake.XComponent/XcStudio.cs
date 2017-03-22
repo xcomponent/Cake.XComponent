@@ -8,12 +8,16 @@ namespace Cake.XComponent
     {
         private const string StudioBatFile = "XComponent.Studio.bat";
         private readonly ICakeContext _context;
-        internal string XcStudioPath { get; }
+        private readonly string _xcStudioPath;
+
+        internal static string XcStudioPath { get; set; }
 
         internal XcStudio(ICakeContext context)
         {
             _context = context;
-            XcStudioPath = new PathFinder(context.Log).FindXcStudio();
+            _xcStudioPath = string.IsNullOrEmpty(XcStudioPath)
+                ? new PathFinder(context.Log).FindXcStudio()
+                : XcStudioPath;
         }
 
         internal void CreateLauncher(string projectPath, string output)
@@ -28,7 +32,7 @@ namespace Cake.XComponent
             }
             
             File.AppendAllLines(filePath,
-                new[] {$"cd \"{XcStudioPath}\"", $"start XCStudio.exe \"{Path.GetFullPath(projectPath)}\""});
+                new[] {$"cd \"{Path.GetDirectoryName(_xcStudioPath)}\"", $"start {PathFinder.XcStudioExe} \"{Path.GetFullPath(projectPath)}\""});
         }
     }
 }

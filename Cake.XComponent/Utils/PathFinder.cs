@@ -8,7 +8,7 @@ namespace Cake.XComponent.Utils
 {
     internal class PathFinder
     {
-        internal const string XcStudioExe = "XComponent.XCTools.exe";
+        internal const string XcStudioExe = "XCStudio.exe";
         internal const string XcToolsExe = "XComponent.XCTools.exe";
         private const string CakeToolsDirectory = "tools";
         private readonly ICakeLog _cakeLog;
@@ -63,7 +63,7 @@ namespace Cake.XComponent.Utils
                 return xcToolsFiles.First().FullName;
             }
 
-            throw new XComponentException($"Can't find XcTools, please make sure {exeToFind} exists in the tools directory.");
+            throw new XComponentException($"Can't find {exeToFind}, please make sure {exeToFind} exists in the tools directory.");
         }
     }
 }
