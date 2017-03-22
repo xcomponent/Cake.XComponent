@@ -37,7 +37,15 @@ namespace Cake.XComponent.Test
             var cakeContext = Substitute.For<ICakeContext>();
             cakeContext.XcToolsBuild("", "", "", "", "");
         }
-        
+
+        [Test]
+        public void IfXcToolsIsProperlyExecuted_XcToolsExportRuntimes_ShouldReturn()
+        {
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcToolsDirectory, PathFinder.XcToolsExe);
+            var cakeContext = Substitute.For<ICakeContext>();
+            cakeContext.XcToolsExportRuntimes("", "");
+        }
+
         [Test]
         [ExpectedException(typeof(XComponentException))]
         public void IfXcToolsIsNotPresent_XcToolsBuild_ShouldThrowAnException()
@@ -45,7 +53,15 @@ namespace Cake.XComponent.Test
             var cakeContext = Substitute.For<ICakeContext>();
             cakeContext.XcToolsBuild("", "", "", "", "");
         }
-        
+
+        [Test]
+        [ExpectedException(typeof(XComponentException))]
+        public void IfXcToolsIsNotPresent_XcToolsExportRuntimes_ShouldThrowAnException()
+        {
+            var cakeContext = Substitute.For<ICakeContext>();
+            cakeContext.XcToolsExportRuntimes("", "");
+        }
+
         [Test]
         [ExpectedException(typeof(XComponentException))]
         public void IfXcToolsIsPresentButExecutionFails_XcToolsBuild_ShouldThrowAnException()
