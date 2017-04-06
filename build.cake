@@ -3,6 +3,7 @@
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
 var packageVersion = Argument("PackageVersion", "8.8.8");
+var apiKey = Argument("ApiKey", "");
 
 Task("Clean")
     .Does(() =>
@@ -42,12 +43,19 @@ Task("Package")
 Task("Deploy")
   .Does(() =>
 {
-	var package = "./nuget/Cake.XComponent." + packageVersion + ".nupkg";
-	NuGetPush(package, new NuGetPushSettings {
-		Source = "https://www.nuget.org/api/v2/package",
-		ApiKey = "119a98a7-d371-40a2-8553-fdaaf7dcdeca"
-	});
+	if (!string.IsNullOrEmpty(apiKey))
+	{
+		var package = "./nuget/Cake.XComponent." + packageVersion + ".nupkg";
+		NuGetPush(package, new NuGetPushSettings 
+		{
+			Source = "https://www.nuget.org/api/v2/package",
+			ApiKey = apiKey
+		});
+	}
+	else
+	{
+		Error("No Api Key provided. Can't deploy package to Nuget.");
+	}
 });
-
 
 RunTarget(target);
