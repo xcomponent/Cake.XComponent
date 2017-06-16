@@ -1,3 +1,5 @@
+[![](http://slack.xcomponent.com/badge.svg)](http://slack.xcomponent.com/)
+
 # XComponent.Cake
 A set of aliases for [Cake](http://cakebuild.net) to help with an XComponent project development.
 
