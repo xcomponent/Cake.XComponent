@@ -5,7 +5,7 @@
     <authors>XComponent</authors>
     <owners>XComponent</owners>
     <projectUrl>https://github.com/xcomponent/Cake.XComponent</projectUrl>
-    <iconUrl>https://pbs.twimg.com/profile_images/561850461309771776/B7MGXhhb.png</iconUrl>
+    <iconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Cake addin for XComponent</description>
     <copyright>Copyright 2016</copyright>
