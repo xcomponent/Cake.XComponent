@@ -51,7 +51,7 @@
     <Compile Include="XComponentTestBase.cs" />
     <Compile Include="Utils\PathFinderTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XcToolsAliasesTest.cs" />
+    <Compile Include="XcBuildAliasesTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -63,7 +63,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Input\XComponent.XCTools.exe" />
+    <EmbeddedResource Include="Input\XComponent.XcBuild.exe" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Input\Cake.XComponent.Test.FakeExe.exe" />

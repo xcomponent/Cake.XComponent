@@ -9,7 +9,7 @@ namespace Cake.XComponent.Utils
     internal class PathFinder
     {
         internal const string XcStudioExe = "XCStudio.exe";
-        internal const string XcToolsExe = "XComponent.XCTools.exe";
+        internal const string XcBuildExe = "xcbuild.exe";
         private const string CakeToolsDirectory = "tools";
         private readonly ICakeLog _cakeLog;
         private static string _workingDirectory;
@@ -35,32 +35,32 @@ namespace Cake.XComponent.Utils
 
         internal string FindXcStudio()
         {
-            var xcToolsPath = FindExe(XcStudioExe);
+            var xcStudioPath = FindExe(XcStudioExe);
             _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
-                $@"XcStudio auto-detection: using XcStudio version '{FileVersionInfo.GetVersionInfo(xcToolsPath)
-                    .ProductVersion}' from {xcToolsPath}");
+                $@"XcStudio auto-detection: using XcStudio version '{FileVersionInfo.GetVersionInfo(xcStudioPath)
+                    .ProductVersion}' from {xcStudioPath}");
 
-            return xcToolsPath;
+            return xcStudioPath;
         }
 
-        internal string FindXcTools()
+        internal string FindXcBuild()
         {
-            var xcToolsPath = FindExe(XcToolsExe);
+            var xcBuildPath = FindExe(XcBuildExe);
             _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
-                $@"XcTools auto-detection: using XcTools version '{FileVersionInfo.GetVersionInfo(xcToolsPath)
-                    .ProductVersion}' from {xcToolsPath}");
+                $@"XcBuild auto-detection: using XcBuild version '{FileVersionInfo.GetVersionInfo(xcBuildPath)
+                    .ProductVersion}' from {xcBuildPath}");
 
-            return xcToolsPath;
+            return xcBuildPath;
         }
 
         private static string FindExe(string exeToFind)
         {
             var toolsDirectory = Path.Combine(WorkingDirectory, CakeToolsDirectory);
 
-            var xcToolsFiles = new DirectoryInfo(toolsDirectory).GetFiles(exeToFind, SearchOption.AllDirectories);
-            if (xcToolsFiles.Any())
+            var exeFiles = new DirectoryInfo(toolsDirectory).GetFiles(exeToFind, SearchOption.AllDirectories);
+            if (exeFiles.Any())
             {
-                return xcToolsFiles.First().FullName;
+                return exeFiles.First().FullName;
             }
 
             throw new XComponentException($"Can't find {exeToFind}, please make sure {exeToFind} exists in the tools directory.");

@@ -50,8 +50,8 @@
     <Compile Include="Utils\PathFinder.cs" />
     <Compile Include="XcStudio.cs" />
     <Compile Include="XcStudioAliases.cs" />
-    <Compile Include="XcTools.cs" />
-    <Compile Include="XcToolsAliases.cs" />
+    <Compile Include="XcBuild.cs" />
+    <Compile Include="XcBuildAliases.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

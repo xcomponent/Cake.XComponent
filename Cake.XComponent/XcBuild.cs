@@ -7,19 +7,19 @@ using Cake.XComponent.Utils;
 
 namespace Cake.XComponent
 {
-    internal sealed class XcTools
+    internal sealed class XcBuild
     {
         private readonly ICakeContext _context;
-        private readonly string _xcToolsPath;
+        private readonly string _xcBuildPath;
 
-        internal static string XcToolsPath { get; set; }
+        internal static string XcBuildPath { get; set; }
 
-        internal XcTools(ICakeContext context)
+        internal XcBuild(ICakeContext context)
         {
             _context = context;
-            _xcToolsPath = string.IsNullOrEmpty(XcToolsPath)
-                ? new PathFinder(context.Log).FindXcTools()
-                : XcToolsPath;
+            _xcBuildPath = string.IsNullOrEmpty(XcBuildPath)
+                ? new PathFinder(context.Log).FindXcBuild()
+                : XcBuildPath;
         }
 
         internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
@@ -37,16 +37,16 @@ namespace Cake.XComponent
 
         internal void ExecuteCommand(string arguments)
         {
-            if (!File.Exists(_xcToolsPath))
+            if (!File.Exists(_xcBuildPath))
             {
-                throw new XComponentException($"XcTools not found at {_xcToolsPath}");
+                throw new XComponentException($"XcBuild not found at {_xcBuildPath}");
             }
 
             var process = new Process
             {
                 StartInfo =
                 {
-                    FileName = _xcToolsPath,
+                    FileName = _xcBuildPath,
                     Arguments = arguments,
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -63,7 +63,7 @@ namespace Cake.XComponent
 
             if (process.ExitCode != 0)
             {
-                throw new XComponentException("Error executing XcTools");
+                throw new XComponentException("Error executing XcBuild");
             }
         }
         

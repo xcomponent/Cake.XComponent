@@ -35,32 +35,32 @@
             <param name="projectPath">The path of the project to launch with XComponent Studio</param>
             <param name="output">The output path to write the launcher</param>
         </member>
-        <member name="T:Cake.XComponent.XcToolsAliases">
+        <member name="T:Cake.XComponent.XcBuildAliases">
             <summary>
-            Cake Extension for XComponent Tools
+            Cake Extension for XComponent Build
             </summary>
         </member>
-        <member name="M:Cake.XComponent.XcToolsAliases.SetXcToolsPath(Cake.Core.ICakeContext,System.String)">
+        <member name="M:Cake.XComponent.XcBuildAliases.SetXcBuildPath(Cake.Core.ICakeContext,System.String)">
             <summary>
-            This method sets the path of XcTools that will be used by all other commands.
+            This method sets the path of XcBuild that will be used by all other commands.
             </summary>
             <param name="context">The Cake Context</param>
-            <param name="xcToolsPath">The XcTools Path</param>
+            <param name="xcBuildPath">The XcBuild Path</param>
         </member>
-        <member name="M:Cake.XComponent.XcToolsAliases.XcToolsBuild(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildBuild(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String)">
             <summary>
-            This method builds the XComponent project using the version of XComponent Tools found in the tools folder.
+            This method builds the XComponent project.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="project">The project to build</param>
             <param name="compiltationMode">The compilation mode (Debug/Release)</param>
             <param name="environment">The XComponent environment (Dev/Prod/...)</param>
             <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
-            <param name="additionalArguments">Additional arguments to pass to XComponent Tools</param>
+            <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
         </member>
-        <member name="M:Cake.XComponent.XcToolsAliases.XcToolsExportRuntimes(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExportRuntimes(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
             <summary>
-            This method exports runtimes for an XComponent project using the version of XComponent Tools found in the tools folder.
+            This method exports runtimes for an XComponent project.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="project">The project to export runtimes for</param>
@@ -68,14 +68,14 @@
             <param name="compiltationMode">The compilation mode (Debug/Release)</param>
             <param name="environment">The XComponent environment (Dev/Prod/...)</param>
             <param name="keepFolderContent">A flag to control whether to ovewrite folder content or not</param>
-            <param name="additionalArguments">Additional arguments to pass to XComponent Tools</param>
+            <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
         </member>
-        <member name="M:Cake.XComponent.XcToolsAliases.XcToolsExecuteCommand(Cake.Core.ICakeContext,System.String)">
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExecuteCommand(Cake.Core.ICakeContext,System.String)">
             <summary>
-            This method executes XcTools passing arguments
+            This method executes XcBuild passing arguments.
             </summary>
             <param name="context">The Cake Context</param>
-            <param name="arguments">Arguments to pass to XComponent Tools</param>
+            <param name="arguments">Arguments to pass to XComponent Build</param>
         </member>
     </members>
 </doc>
