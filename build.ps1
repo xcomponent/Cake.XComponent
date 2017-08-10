@@ -32,6 +32,8 @@ Tells Cake to use the Mono scripting engine.
 Skips restoring of packages.
 .PARAMETER ScriptArgs
 Remaining arguments are added here.
+.PARAMETER ApiKey
+The Api Key to publich Nuget Package.
 
 .LINK
 http://cakebuild.net
@@ -52,7 +54,8 @@ Param(
     [switch]$Mono,
     [switch]$SkipToolPackageRestore,
     [Parameter(Position=0,Mandatory=$false,ValueFromRemainingArguments=$true)]
-    [string[]]$ScriptArgs
+    [string[]]$ScriptArgs,
+    [string[]]$ApiKey
 )
 
 [Reflection.Assembly]::LoadWithPartialName("System.Security") | Out-Null
@@ -185,5 +188,5 @@ if (!(Test-Path $CAKE_EXE)) {
 
 # Start Cake
 Write-Host "Running build script..."
-Invoke-Expression "& `"$CAKE_EXE`" `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseMono $UseDryRun $UseExperimental $ScriptArgs"
+Invoke-Expression "& `"$CAKE_EXE`" `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseMono $UseDryRun $UseExperimental $ScriptArgs $ApiKey"
 exit $LASTEXITCODE
