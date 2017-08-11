@@ -55,7 +55,7 @@ Param(
     [switch]$SkipToolPackageRestore,
     [Parameter(Position=0,Mandatory=$false,ValueFromRemainingArguments=$true)]
     [string[]]$ScriptArgs,
-    [string[]]$ApiKey
+    [string]$ApiKey = ""
 )
 
 [Reflection.Assembly]::LoadWithPartialName("System.Security") | Out-Null
@@ -101,6 +101,16 @@ $UseMono = "";
 if($Mono.IsPresent) {
     Write-Verbose -Message "Using the Mono based scripting engine."
     $UseMono = "-mono"
+}
+
+$OtherArguments = New-Object System.Collections.ArrayList
+
+foreach ($ScriptArg in $ScriptArgs) {
+	$OtherArguments.Add($ScriptArg) > $null
+}
+if($ApiKey -ne "")
+{
+	$OtherArguments.Add("-ApiKey='" + $ApiKey + "'") > $null
 }
 
 # Should we use the new Roslyn?
@@ -188,5 +198,5 @@ if (!(Test-Path $CAKE_EXE)) {
 
 # Start Cake
 Write-Host "Running build script..."
-Invoke-Expression "& `"$CAKE_EXE`" `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseMono $UseDryRun $UseExperimental $ScriptArgs $ApiKey"
+Invoke-Expression "& `"$CAKE_EXE`" `"$Script`" -target=`"$Target`" -configuration=`"$Configuration`" -verbosity=`"$Verbosity`" $UseMono $UseDryRun $UseExperimental $OtherArguments"
 exit $LASTEXITCODE
