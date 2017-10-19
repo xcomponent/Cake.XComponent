@@ -7,14 +7,12 @@ namespace Cake.XComponent
     internal sealed class XcStudio
     {
         private const string StudioBatFile = "XComponent.Studio.bat";
-        private readonly ICakeContext _context;
         private readonly string _xcStudioPath;
 
         internal static string XcStudioPath { get; set; }
 
         internal XcStudio(ICakeContext context)
         {
-            _context = context;
             _xcStudioPath = string.IsNullOrEmpty(XcStudioPath)
                 ? new PathFinder(context.Log).FindXcStudio()
                 : XcStudioPath;

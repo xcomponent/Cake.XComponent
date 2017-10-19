@@ -58,6 +58,21 @@
             <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
             <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
         </member>
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildBuildComponent(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            This method builds the XComponent project.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="project">The project to build</param>
+            <param name="component">Th component to build</param>
+            <param name="compiltationMode">The compilation mode (Debug/Release)</param>
+            <param name="environment">The XComponent environment (Dev/Prod/...)</param>
+            <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
+            <param name="framework">The version of .Net framework to use</param>
+            <param name="serializationtype">The serialization type</param>
+            <param name="logkeys">The list of log keys used by this component</param>
+            <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+        </member>
         <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExportRuntimes(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
             <summary>
             This method exports runtimes for an XComponent project.
