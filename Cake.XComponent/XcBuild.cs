@@ -24,7 +24,14 @@ namespace Cake.XComponent
 
         internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
         {
-            var arguments = $"--build --project={project} --compilationmode={compiltationMode} --env={environment}  --vs={visualStudioVersion} {additionalArguments}";
+            var arguments = $"--build --project={project} --compilationmode={compiltationMode} --env={environment} --vs={visualStudioVersion} {additionalArguments}";
+            ExecuteCommand(arguments);
+        }
+
+        internal void BuildComponent(string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string framework = "Framework452", string serializationtype = "Json", string logkeys = "", string additionalArguments = "")
+        {
+            var logKeysArgument = string.IsNullOrEmpty(logkeys) ? string.Empty : $"--logkeys={logkeys}";
+            var arguments = $"--build --project={project} --component=\"{component}\" --compilationmode={compiltationMode} --env={environment} --vs={visualStudioVersion} --framework={framework} --serializationtype=\"{serializationtype}\" {logKeysArgument} {additionalArguments}";
             ExecuteCommand(arguments);
         }
 

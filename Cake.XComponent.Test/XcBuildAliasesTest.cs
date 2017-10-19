@@ -55,6 +55,14 @@ namespace Cake.XComponent.Test
         }
 
         [Test]
+        public void IfXcBuildIsProperlyExecuted_XcBuildBuildComponent_ShouldReturn()
+        {
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.XcBuildExe);
+            var cakeContext = Substitute.For<ICakeContext>();
+            cakeContext.XcBuildBuildComponent("", "", "", "", "", "", "", "", "");
+        }
+
+        [Test]
         public void IfXcBuildIsProperlyExecuted_XcBuildExportRuntimes_ShouldReturn()
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.XcBuildExe);
