@@ -1,3 +1,4 @@
+using System.IO;
 using Cake.Core;
 using Cake.Core.Annotations;
 
@@ -17,7 +18,7 @@ namespace Cake.XComponent
         [CakeMethodAlias]
         public static void SetXcStudioPath(this ICakeContext context, string xcStudioPath)
         {
-            XcStudio.XcStudioPath = xcStudioPath;
+            XcStudio.XcStudioPath = Path.GetFullPath(xcStudioPath); ;
         }
 
         /// <summary>

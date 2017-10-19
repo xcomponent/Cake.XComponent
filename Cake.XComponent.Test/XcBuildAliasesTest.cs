@@ -13,7 +13,7 @@ namespace Cake.XComponent.Test
         private string _xcBuildDirectory;
 
         [TestFixtureSetUp]
-        public void SetUp()
+        public void TestFixtureSetUp()
         {
             var toolsDirectory = Path.Combine(PathFinder.WorkingDirectory, "tools");
             Directory.CreateDirectory(toolsDirectory);
@@ -22,12 +22,28 @@ namespace Cake.XComponent.Test
         }
 
         [TestFixtureTearDown]
-        public void TearDown()
+        public void TearDoTestFixtureTearDownwn()
         {
             if (Directory.Exists(_xcBuildDirectory))
             {
                 Directory.Delete(_xcBuildDirectory, true);
             }
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            XcBuild.XcBuildPath = null;
+        }
+
+        [TestCase("xcbuild.exe")]
+        [TestCase(@"subFolder\xcbuild.exe")]
+        [TestCase(@"..\subFolder\xcbuild.exe")]
+        public void TestSetXcBuildPath(string path)
+        {
+            var cakeContext = Substitute.For<ICakeContext>();
+            cakeContext.SetXcBuildPath(path);
+            Assert.AreEqual(Path.GetFullPath(path), XcBuild.XcBuildPath);
         }
 
         [Test]

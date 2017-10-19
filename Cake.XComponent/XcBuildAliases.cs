@@ -1,3 +1,5 @@
+using System;
+using System.IO;
 using Cake.Core;
 using Cake.Core.Annotations;
 
@@ -17,7 +19,7 @@ namespace Cake.XComponent
         [CakeMethodAlias]
         public static void SetXcBuildPath(this ICakeContext context, string xcBuildPath)
         {
-            XcBuild.XcBuildPath = xcBuildPath;
+            XcBuild.XcBuildPath = Path.GetFullPath(xcBuildPath);
         }
 
         /// <summary>
