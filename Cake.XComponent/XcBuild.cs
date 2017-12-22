@@ -82,7 +82,7 @@ namespace Cake.XComponent
                 {
                      _context.Log.Write(Verbosity.Normal, LogLevel.Information, args.Data);
                 }
-                catch(Exception)
+                catch
                 {
                 }
             }
@@ -96,7 +96,7 @@ namespace Cake.XComponent
                 {           
                     _context.Log.Write(Verbosity.Normal, LogLevel.Error, args.Data);
                 }
-                catch(Exception)
+                catch
                 {
                 }
             }
