@@ -78,7 +78,14 @@ namespace Cake.XComponent
         {
             if (!string.IsNullOrEmpty(args.Data))
             {
-                _context.Log.Write(Verbosity.Normal, LogLevel.Information, args.Data);
+                try
+                {
+                     _context.Log.Write(Verbosity.Normal, LogLevel.Information, args.Data);
+                }
+                catch(Exception e)
+                {
+                   Console.WriteLine(e + ":" + args.Data);   
+                }
             }
         }
 
@@ -86,7 +93,14 @@ namespace Cake.XComponent
         {
             if (!string.IsNullOrEmpty(args.Data))
             {
-                _context.Log.Write(Verbosity.Normal, LogLevel.Error, args.Data);
+                try
+                {           
+                    _context.Log.Write(Verbosity.Normal, LogLevel.Error, args.Data);
+                }
+                catch(Exception e)
+                {
+                   Console.WriteLine(e + ":" + args.Data);   
+                }
             }
         }
     }
