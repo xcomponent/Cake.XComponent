@@ -84,7 +84,6 @@ namespace Cake.XComponent
                 }
                 catch(Exception e)
                 {
-                   Console.WriteLine(e + ":" + args.Data);   
                 }
             }
         }
@@ -99,7 +98,6 @@ namespace Cake.XComponent
                 }
                 catch(Exception e)
                 {
-                   Console.WriteLine(e + ":" + args.Data);   
                 }
             }
         }
