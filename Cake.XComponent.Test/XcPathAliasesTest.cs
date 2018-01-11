@@ -35,7 +35,7 @@ namespace Cake.XComponent.Test
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _applicationDirectory, PathFinder.GetXcStudioProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.GetXcStudioPath(platform);
+            Assert.DoesNotThrow(() => cakeContext.GetXcStudioPath(platform));
         }
         
         [Test]
@@ -54,9 +54,9 @@ namespace Cake.XComponent.Test
         [Test]
         public void TestSetXcStudioPathWithNotExistingPath()
         {
-            var path = Path.Combine(_applicationDirectory, PathFinder.GetXcStudioProgram(Platform.X64));
+            var notExistingPath = Path.Combine(_applicationDirectory, Path.GetRandomFileName());
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.SetXcStudioPath(path);
+            cakeContext.SetXcStudioPath(notExistingPath);
 
             Assert.IsNull(cakeContext.GetXcStudioPath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcStudioPath(Platform.X86));
@@ -68,7 +68,7 @@ namespace Cake.XComponent.Test
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _applicationDirectory, PathFinder.GetXcBuildProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.GetXcBuildPath(platform);
+            Assert.DoesNotThrow(() => cakeContext.GetXcBuildPath(platform));
         }
 
         [Test]
@@ -87,9 +87,9 @@ namespace Cake.XComponent.Test
         [Test]
         public void TestSetXcBuildPathWithNotExistingPath()
         {
-            var path = Path.Combine(_applicationDirectory, PathFinder.GetXcBuildProgram(Platform.X64));
+            var notExistingPath = Path.Combine(_applicationDirectory, Path.GetRandomFileName());
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.SetXcBuildPath(path);
+            cakeContext.SetXcBuildPath(notExistingPath);
 
             Assert.IsNull(cakeContext.GetXcBuildPath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcBuildPath(Platform.X86));
@@ -101,7 +101,7 @@ namespace Cake.XComponent.Test
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _applicationDirectory, PathFinder.GetXcRuntimeProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.GetXcRuntimePath(platform);
+            Assert.DoesNotThrow(() => cakeContext.GetXcRuntimePath(platform));
         }
 
         [Test]
@@ -120,9 +120,9 @@ namespace Cake.XComponent.Test
         [Test]
         public void TestSetXcRuntimePathWithNotExistingPath()
         {
-            var path = Path.Combine(_applicationDirectory, PathFinder.GetXcRuntimeProgram(Platform.X64));
+            var notExistingPath = Path.Combine(_applicationDirectory, Path.GetRandomFileName());
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.SetXcRuntimePath(path);
+            cakeContext.SetXcRuntimePath(notExistingPath);
 
             Assert.IsNull(cakeContext.GetXcRuntimePath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcRuntimePath(Platform.X86));
@@ -134,7 +134,7 @@ namespace Cake.XComponent.Test
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _applicationDirectory, PathFinder.GetXcBridgeProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.GetXcBridgePath(platform);
+            Assert.DoesNotThrow(() => cakeContext.GetXcBridgePath(platform));
         }
 
         [Test]
@@ -153,9 +153,9 @@ namespace Cake.XComponent.Test
         [Test]
         public void TestSetXcBridgePathWithNotExistingPath()
         {
-            var path = Path.Combine(_applicationDirectory, PathFinder.GetXcBridgeProgram(Platform.X64));
+            var notExistingPath = Path.Combine(_applicationDirectory, Path.GetRandomFileName());
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.SetXcBridgePath(path);
+            cakeContext.SetXcBridgePath(notExistingPath);
 
             Assert.IsNull(cakeContext.GetXcBridgePath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcBridgePath(Platform.X86));
@@ -167,7 +167,7 @@ namespace Cake.XComponent.Test
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _applicationDirectory, PathFinder.GetXcSpyProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.GetXcSpyPath(platform);
+            Assert.DoesNotThrow(() => cakeContext.GetXcSpyPath(platform));
         }
 
         [Test]
@@ -186,9 +186,9 @@ namespace Cake.XComponent.Test
         [Test]
         public void TestSetXcSpyPathWithNotExistingPath()
         {
-            var path = Path.Combine(_applicationDirectory, PathFinder.GetXcSpyProgram(Platform.X64));
+            var notExistingPath = Path.Combine(_applicationDirectory, Path.GetRandomFileName());
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.SetXcSpyPath(path);
+            cakeContext.SetXcSpyPath(notExistingPath);
 
             Assert.IsNull(cakeContext.GetXcSpyPath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcSpyPath(Platform.X86));

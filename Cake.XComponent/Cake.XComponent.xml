@@ -37,11 +37,12 @@
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.GetXcStudioPath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
             <summary>
-            
+            This method returns the path of XcStudio specified by the user or search it in the tools directory.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="platform">The platform used to launch the application</param>
-            <returns></returns>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcStudio can't be found in tools directory.</exception>
+            <returns>The XcStudio path</returns>
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.SetXcStudioPath(Cake.Core.ICakeContext,System.String)">
             <summary>
@@ -52,11 +53,12 @@
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.GetXcBuildPath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
             <summary>
-            
+            This method returns the path of XcBuild specified by the user or search it in the tools directory.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="platform">The platform used to launch the application</param>
-            <returns></returns>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcBuild can't be found in tools directory.</exception>
+            <returns>The XcBuild path</returns>
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.SetXcBuildPath(Cake.Core.ICakeContext,System.String)">
             <summary>
@@ -67,45 +69,48 @@
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.GetXcRuntimePath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
             <summary>
-            
+            This method returns the path of XcRuntime specified by the user or search it in the tools directory.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="platform">The platform used to launch the application</param>
-            <returns></returns>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcRuntime can't be found in tools directory.</exception>
+            <returns>The XcRuntime path</returns>
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.SetXcRuntimePath(Cake.Core.ICakeContext,System.String)">
             <summary>
-            
+            This method sets the path of XcRuntime that will be used by all other commands.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="xcRuntimePath">The XcRuntime Path</param>
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.GetXcBridgePath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
             <summary>
-            
+            This method returns the path of XcBridge specified by the user or search it in the tools directory.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="platform">The platform used to launch the application</param>
-            <returns></returns>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcBridge can't be found in tools directory.</exception>
+            <returns>The XcBridge path</returns>
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.SetXcBridgePath(Cake.Core.ICakeContext,System.String)">
             <summary>
-            
+            This method sets the path of XcBridge that will be used by all other commands.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="xcBridgePath">The XcBridge Path</param>
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.GetXcSpyPath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
             <summary>
-            
+            This method returns the path of XcSpy specified by the user or search it in the tools directory.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="platform">The platform used to launch the application</param>
-            <returns></returns>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcSpy can't be found in tools directory.</exception>
+            <returns>The XcSpy path</returns>
         </member>
         <member name="M:Cake.XComponent.XcPathAliases.SetXcSpyPath(Cake.Core.ICakeContext,System.String)">
             <summary>
-            
+            This method sets the path of XcSpy that will be used by all other commands.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="xcSpyPath">The XcSpy Path</param>

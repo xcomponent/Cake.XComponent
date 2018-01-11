@@ -13,7 +13,7 @@ namespace Cake.XComponent.Utils
         private const string XcRuntimeProgram = "xcruntime{0}.exe";
         private const string XcBridgeProgram = "XCWebSocketBridge{0}.exe";
         private const string XcBuildProgram = "xcbuild{0}.exe";
-        private const string X86SubName = "32";
+        private const string X86Suffix = "32";
         private const string CakeToolsDirectory = "tools";
         private readonly ICakeLog _cakeLog;
         private static string _workingDirectory;
@@ -54,7 +54,7 @@ namespace Cake.XComponent.Utils
 
         internal static string GetXcStudioProgram(Platform platform)
         {
-            return string.Format(XcStudioProgram, platform == Platform.X64 ? string.Empty : X86SubName);
+            return string.Format(XcStudioProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
         }
 
         internal string FindXcBuild(Platform platform)
@@ -64,7 +64,7 @@ namespace Cake.XComponent.Utils
 
         internal static string GetXcBuildProgram(Platform platform)
         {
-            return string.Format(XcBuildProgram, platform == Platform.X64 ? string.Empty : X86SubName);
+            return string.Format(XcBuildProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
         }
 
         internal string FindXcRuntime(Platform platform)
@@ -74,7 +74,7 @@ namespace Cake.XComponent.Utils
 
         internal static string GetXcRuntimeProgram(Platform platform)
         {
-            return string.Format(XcRuntimeProgram, platform == Platform.X64 ? string.Empty : X86SubName);
+            return string.Format(XcRuntimeProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
         }
 
         public string FindXcBridge(Platform platform)
@@ -84,7 +84,7 @@ namespace Cake.XComponent.Utils
 
         internal static string GetXcBridgeProgram(Platform platform)
         {
-            return string.Format(XcBridgeProgram, platform == Platform.X64 ? string.Empty : X86SubName);
+            return string.Format(XcBridgeProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
         }
 
         public string FindXcSpy(Platform platform)
@@ -94,7 +94,7 @@ namespace Cake.XComponent.Utils
 
         internal static string GetXcSpyProgram(Platform platform)
         {
-            return string.Format(XcSpyProgram, platform == Platform.X64 ? string.Empty : X86SubName);
+            return string.Format(XcSpyProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
         }
 
         private string FindApplicationPath(string applicationName, string userPath, string exeToFind)

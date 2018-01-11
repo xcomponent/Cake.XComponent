@@ -1,6 +1,7 @@
 using System.IO;
 using Cake.Core;
 using Cake.Core.Annotations;
+using Cake.XComponent.Exception;
 using Cake.XComponent.Utils;
 
 namespace Cake.XComponent
@@ -16,7 +17,8 @@ namespace Cake.XComponent
         /// </summary>
         /// <param name="context">The Cake Context</param>
         /// <param name="platform">The platform used to launch the application</param>
-        /// <returns></returns>
+        /// <exception cref="XComponentException">Thrown when XcStudio can't be found in tools directory.</exception>
+        /// <returns>The XcStudio path</returns>
         [CakeMethodAlias]
         public static string GetXcStudioPath(this ICakeContext context, Platform platform = Platform.X64)
         {
@@ -39,7 +41,8 @@ namespace Cake.XComponent
         /// </summary>
         /// <param name="context">The Cake Context</param>
         /// <param name="platform">The platform used to launch the application</param>
-        /// <returns></returns>
+        /// <exception cref="XComponentException">Thrown when XcBuild can't be found in tools directory.</exception>
+        /// <returns>The XcBuild path</returns>
         [CakeMethodAlias]
         public static string GetXcBuildPath(this ICakeContext context, Platform platform = Platform.X64)
         {
@@ -62,7 +65,8 @@ namespace Cake.XComponent
         /// </summary>
         /// <param name="context">The Cake Context</param>
         /// <param name="platform">The platform used to launch the application</param>
-        /// <returns></returns>
+        /// <exception cref="XComponentException">Thrown when XcRuntime can't be found in tools directory.</exception>
+        /// <returns>The XcRuntime path</returns>
         public static string GetXcRuntimePath(this ICakeContext context, Platform platform = Platform.X64)
         {
             return new PathFinder(context.Log).FindXcRuntime(platform);
@@ -84,7 +88,8 @@ namespace Cake.XComponent
         /// </summary>
         /// <param name="context">The Cake Context</param>
         /// <param name="platform">The platform used to launch the application</param>
-        /// <returns></returns>
+        /// <exception cref="XComponentException">Thrown when XcBridge can't be found in tools directory.</exception>
+        /// <returns>The XcBridge path</returns>
         public static string GetXcBridgePath(this ICakeContext context, Platform platform = Platform.X64)
         {
             return new PathFinder(context.Log).FindXcBridge(platform);
@@ -106,7 +111,8 @@ namespace Cake.XComponent
         /// </summary>
         /// <param name="context">The Cake Context</param>
         /// <param name="platform">The platform used to launch the application</param>
-        /// <returns></returns>
+        /// <exception cref="XComponentException">Thrown when XcSpy can't be found in tools directory.</exception>
+        /// <returns>The XcSpy path</returns>
         public static string GetXcSpyPath(this ICakeContext context, Platform platform = Platform.X64)
         {
             return new PathFinder(context.Log).FindXcSpy(platform);
