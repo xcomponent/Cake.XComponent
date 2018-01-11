@@ -22,7 +22,7 @@ namespace Cake.XComponent.Test
         }
 
         [TestFixtureTearDown]
-        public void TearDoTestFixtureTearDownwn()
+        public void TestFixtureTearDown()
         {
             if (Directory.Exists(_xcBuildDirectory))
             {
@@ -33,7 +33,7 @@ namespace Cake.XComponent.Test
         [TearDown]
         public void TearDown()
         {
-            XcBuild.XcBuildPath = null;
+            PathFinder.XcBuildPath = null;
         }
 
         [TestCase("xcbuild.exe")]
@@ -43,56 +43,71 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             cakeContext.SetXcBuildPath(path);
-            Assert.AreEqual(Path.GetFullPath(path), XcBuild.XcBuildPath);
+            Assert.AreEqual(Path.GetFullPath(path), PathFinder.XcBuildPath);
         }
 
-        [Test]
-        public void IfXcBuildIsProperlyExecuted_XcBuildBuild_ShouldReturn()
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
+        public void IfXcBuildIsProperlyExecuted_XcBuildBuild_ShouldReturn(Platform platform)
         {
-            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.XcBuildExe);
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.XcBuildBuild("", "", "", "", "");
+            cakeContext.XcBuildBuild("", "", "", "", "", platform);
         }
 
-        [Test]
-        public void IfXcBuildIsProperlyExecuted_XcBuildBuildComponent_ShouldReturn()
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
+        public void IfXcBuildIsProperlyExecuted_XcBuildBuildComponent_ShouldReturn(Platform platform)
         {
-            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.XcBuildExe);
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.XcBuildBuildComponent("", "", "", "", "", "", "", "", "");
+            cakeContext.XcBuildBuildComponent("", "", "", "", "", "", "", "", "", platform);
         }
 
-        [Test]
-        public void IfXcBuildIsProperlyExecuted_XcBuildExportRuntimes_ShouldReturn()
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
+        public void IfXcBuildIsProperlyExecuted_XcBuildExportRuntimes_ShouldReturn(Platform platform)
         {
-            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.XcBuildExe);
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.XcBuildExportRuntimes("", "");
+            cakeContext.XcBuildExportRuntimes("", "", "Debug", "Dev", false, "", platform);
         }
 
-        [Test]
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
+        public void IfXcBuildIsProperlyExecuted_XcBuildExecuteCommand_ShouldReturn(Platform platform)
+        {
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
+            var cakeContext = Substitute.For<ICakeContext>();
+            cakeContext.XcBuildExecuteCommand("", platform);
+        }
+
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
         [ExpectedException(typeof(XComponentException))]
-        public void IfXcBuildIsNotPresent_XcBuildBuild_ShouldThrowAnException()
+        public void IfXcBuildIsNotPresent_XcBuildBuild_ShouldThrowAnException(Platform platform)
         {
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.XcBuildBuild("", "", "", "", "");
+            cakeContext.XcBuildBuild("", "", "", "", "", platform);
         }
 
-        [Test]
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
         [ExpectedException(typeof(XComponentException))]
-        public void IfXcBuildIsNotPresent_XcBuildExportRuntimes_ShouldThrowAnException()
+        public void IfXcBuildIsNotPresent_XcBuildExportRuntimes_ShouldThrowAnException(Platform platform)
         {
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.XcBuildExportRuntimes("", "");
+            cakeContext.XcBuildExportRuntimes("", "", "Debug", "Dev", false, "", platform);
         }
 
-        [Test]
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
         [ExpectedException(typeof(XComponentException))]
-        public void IfXcBuildIsPresentButExecutionFails_XcBuildBuild_ShouldThrowAnException()
+        public void IfXcBuildIsPresentButExecutionFails_XcBuildBuild_ShouldThrowAnException(Platform platform)
         {
-            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.XcBuildExe);
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.XcBuildBuild("", "", "", "", "--fail");
+            cakeContext.XcBuildBuild("", "", "", "", "--fail", platform);
         }
     }
 }

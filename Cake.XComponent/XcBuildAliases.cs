@@ -1,5 +1,3 @@
-using System;
-using System.IO;
 using Cake.Core;
 using Cake.Core.Annotations;
 
@@ -12,17 +10,6 @@ namespace Cake.XComponent
     public static class XcBuildAliases
     {
         /// <summary>
-        /// This method sets the path of XcBuild that will be used by all other commands.
-        /// </summary>
-        /// <param name="context">The Cake Context</param>
-        /// <param name="xcBuildPath">The XcBuild Path</param>
-        [CakeMethodAlias]
-        public static void SetXcBuildPath(this ICakeContext context, string xcBuildPath)
-        {
-            XcBuild.XcBuildPath = Path.GetFullPath(xcBuildPath);
-        }
-
-        /// <summary>
         /// This method builds the XComponent project.
         /// </summary>
         /// <param name="context">The Cake Context</param>
@@ -31,10 +18,11 @@ namespace Cake.XComponent
         /// <param name="environment">The XComponent environment (Dev/Prod/...)</param>
         /// <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
         /// <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+        /// <param name="platform">The platform used to launch the application</param>
         [CakeMethodAlias]
-        public static void XcBuildBuild(this ICakeContext context, string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
+        public static void XcBuildBuild(this ICakeContext context, string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "", Platform platform = Platform.X64)
         {
-            new XcBuild(context).Build(project, compiltationMode, environment, visualStudioVersion, additionalArguments);
+            new XcBuild(context, platform).Build(project, compiltationMode, environment, visualStudioVersion, additionalArguments);
         }
 
         /// <summary>
@@ -50,10 +38,11 @@ namespace Cake.XComponent
         /// <param name="serializationtype">The serialization type</param>
         /// <param name="logkeys">The list of log keys used by this component</param>
         /// <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+        /// <param name="platform">The platform used to launch the application</param>
         [CakeMethodAlias]
-        public static void XcBuildBuildComponent(this ICakeContext context, string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string framework = "Framework452", string serializationtype = "Json", string logkeys = "", string additionalArguments = "")
+        public static void XcBuildBuildComponent(this ICakeContext context, string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string framework = "Framework452", string serializationtype = "Json", string logkeys = "", string additionalArguments = "", Platform platform = Platform.X64)
         {
-            new XcBuild(context).BuildComponent(project, component, compiltationMode, environment, visualStudioVersion, framework, serializationtype, logkeys, additionalArguments);
+            new XcBuild(context, platform).BuildComponent(project, component, compiltationMode, environment, visualStudioVersion, framework, serializationtype, logkeys, additionalArguments);
         }
 
         /// <summary>
@@ -66,10 +55,11 @@ namespace Cake.XComponent
         /// <param name="environment">The XComponent environment (Dev/Prod/...)</param>
         /// <param name="keepFolderContent">A flag to control whether to ovewrite folder content or not</param>
         /// <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+        /// <param name="platform">The platform used to launch the application</param>
         [CakeMethodAlias]
-        public static void XcBuildExportRuntimes(this ICakeContext context, string project, string output, string compiltationMode = "Debug", string environment = "Dev", bool keepFolderContent = false, string additionalArguments = "")
+        public static void XcBuildExportRuntimes(this ICakeContext context, string project, string output, string compiltationMode = "Debug", string environment = "Dev", bool keepFolderContent = false, string additionalArguments = "", Platform platform = Platform.X64)
         {
-            new XcBuild(context).ExportRuntimes(project, output, compiltationMode, environment, keepFolderContent, additionalArguments);
+            new XcBuild(context, platform).ExportRuntimes(project, output, compiltationMode, environment, keepFolderContent, additionalArguments);
         }
 
         /// <summary>
@@ -77,10 +67,11 @@ namespace Cake.XComponent
         /// </summary>
         /// <param name="context">The Cake Context</param>
         /// <param name="arguments">Arguments to pass to XComponent Build</param>
+        /// <param name="platform">The platform used to launch the application</param>
         [CakeMethodAlias]
-        public static void XcBuildExecuteCommand(this ICakeContext context, string arguments)
+        public static void XcBuildExecuteCommand(this ICakeContext context, string arguments, Platform platform = Platform.X64)
         {
-            new XcBuild(context).ExecuteCommand(arguments);
+            new XcBuild(context, platform).ExecuteCommand(arguments);
         }
     }
 }
