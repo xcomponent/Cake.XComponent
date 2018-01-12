@@ -27,22 +27,24 @@ namespace Cake.XComponent.Test.Utils
             Directory.Delete(_xcBuildDirectory, true);
         }
 
-        [Test]
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
         [ExpectedException(typeof(XComponentException))]
-        public void IfXcBuildIsNotPresent_FindXcBuild_ShouldThrowAnException()
+        public void IfXcBuildIsNotPresent_FindXcBuild_ShouldThrowAnException(Platform platform)
         {
             var logSubtitute = Substitute.For<ICakeLog>();
             var pathFinder = new PathFinder(logSubtitute);
-            pathFinder.FindXcBuild();
+            pathFinder.FindXcBuild(platform);
         }
-        
-        [Test]
-        public void IfXcBuildIsPresent_FindXcBuild_ShouldReturnTheProperVersion()
+
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
+        public void IfXcBuildIsPresent_FindXcBuild_ShouldReturnTheProperVersion(Platform platform)
         {
-            WriteResource("Cake.XComponent.Test.Input.XComponent.XcBuild.exe", _xcBuildDirectory, PathFinder.XcBuildExe);
+            WriteResource("Cake.XComponent.Test.Input.XComponent.XcBuild.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
             var logSubtitute = Substitute.For<ICakeLog>();
             var pathFinder = new PathFinder(logSubtitute);
-            Assert.AreEqual(Path.Combine(_xcBuildDirectory, PathFinder.XcBuildExe), pathFinder.FindXcBuild());
+            Assert.AreEqual(Path.Combine(_xcBuildDirectory, PathFinder.GetXcBuildProgram(platform)), pathFinder.FindXcBuild(platform));
         }
     }
 }

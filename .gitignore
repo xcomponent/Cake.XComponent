@@ -9,3 +9,9 @@ tools/*/*
 *.ncrunchsolution.user
 _NCrunch*
 /TestResult.xml
+
+*.ncrunchproject
+
+*.user
+
+*.ncrunchsolution

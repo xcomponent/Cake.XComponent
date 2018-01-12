@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using Cake.Core;
+using Cake.XComponent.Utils;
 using NSubstitute;
 using NUnit.Framework;
 
@@ -11,7 +12,7 @@ namespace Cake.XComponent.Test
         [TearDown]
         public void TearDown()
         {
-            XcStudio.XcStudioPath = null;
+            PathFinder.XcStudioPath = null;
         }
 
         [TestCase("XCStudio.exe")]
@@ -21,7 +22,7 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             cakeContext.SetXcStudioPath(path);
-            Assert.AreEqual(Path.GetFullPath(path), XcStudio.XcStudioPath);
+            Assert.AreEqual(Path.GetFullPath(path), PathFinder.XcStudioPath);
         }
     }
 }

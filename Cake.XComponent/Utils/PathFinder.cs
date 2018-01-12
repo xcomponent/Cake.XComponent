@@ -8,8 +8,12 @@ namespace Cake.XComponent.Utils
 {
     internal class PathFinder
     {
-        internal const string XcStudioExe = "XCStudio.exe";
-        internal const string XcBuildExe = "xcbuild.exe";
+        private const string XcStudioProgram = "XCStudio{0}.exe";
+        private const string XcSpyProgram = "xcspy{0}.exe";
+        private const string XcRuntimeProgram = "xcruntime{0}.exe";
+        private const string XcBridgeProgram = "XCWebSocketBridge{0}.exe";
+        private const string XcBuildProgram = "xcbuild{0}.exe";
+        private const string X86Suffix = "32";
         private const string CakeToolsDirectory = "tools";
         private readonly ICakeLog _cakeLog;
         private static string _workingDirectory;
@@ -28,29 +32,98 @@ namespace Cake.XComponent.Utils
             set { _workingDirectory = value; }
         }
 
+        internal static string XcStudioPath { get; set; }
+
+        internal static string XcBuildPath { get; set; }
+
+        internal static string XcRuntimePath { get; set; }
+
+        internal static string XcBridgePath { get; set; }
+
+        internal static string XcSpyPath { get; set; }
+
         public PathFinder(ICakeLog cakeLog)
         {
             _cakeLog = cakeLog;
         }
 
-        internal string FindXcStudio()
+        internal string FindXcStudio(Platform platform)
         {
-            var xcStudioPath = FindExe(XcStudioExe);
-            _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
-                $@"XcStudio auto-detection: using XcStudio version '{FileVersionInfo.GetVersionInfo(xcStudioPath)
-                    .ProductVersion}' from {xcStudioPath}");
-
-            return xcStudioPath;
+            return FindApplicationPath("XcStudio", XcStudioPath, GetXcStudioProgram(platform));
         }
 
-        internal string FindXcBuild()
+        internal static string GetXcStudioProgram(Platform platform)
         {
-            var xcBuildPath = FindExe(XcBuildExe);
-            _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
-                $@"XcBuild auto-detection: using XcBuild version '{FileVersionInfo.GetVersionInfo(xcBuildPath)
-                    .ProductVersion}' from {xcBuildPath}");
+            return string.Format(XcStudioProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
+        }
 
-            return xcBuildPath;
+        internal string FindXcBuild(Platform platform)
+        {
+            return FindApplicationPath("XcBuild", XcBuildPath, GetXcBuildProgram(platform));
+        }
+
+        internal static string GetXcBuildProgram(Platform platform)
+        {
+            return string.Format(XcBuildProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
+        }
+
+        internal string FindXcRuntime(Platform platform)
+        {
+            return FindApplicationPath("XcRuntime", XcRuntimePath, GetXcRuntimeProgram(platform));
+        }
+
+        internal static string GetXcRuntimeProgram(Platform platform)
+        {
+            return string.Format(XcRuntimeProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
+        }
+
+        public string FindXcBridge(Platform platform)
+        {
+            return FindApplicationPath("XcBridge", XcBridgePath, GetXcBridgeProgram(platform));
+        }
+
+        internal static string GetXcBridgeProgram(Platform platform)
+        {
+            return string.Format(XcBridgeProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
+        }
+
+        public string FindXcSpy(Platform platform)
+        {
+            return FindApplicationPath("XcSpy", XcSpyPath, GetXcSpyProgram(platform));
+        }
+
+        internal static string GetXcSpyProgram(Platform platform)
+        {
+            return string.Format(XcSpyProgram, platform == Platform.X64 ? string.Empty : X86Suffix);
+        }
+
+        private string FindApplicationPath(string applicationName, string userPath, string exeToFind)
+        {
+            if (!string.IsNullOrEmpty(userPath))
+            {
+                if (!File.Exists(userPath))
+                {
+                    _cakeLog.Write(Verbosity.Normal, LogLevel.Fatal,
+                        $"{applicationName} provided by user can't be fount at {userPath}");
+                    return null;
+                }
+
+                _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
+                    $@"{applicationName} path provided by user: using {applicationName} version '{
+                            FileVersionInfo.GetVersionInfo(userPath)
+                                .ProductVersion
+                        }' from {userPath}");
+                return userPath;
+            }
+
+            var applicationPath = FindExe(exeToFind);
+            _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
+                $@"{applicationName} auto-detection: using {applicationName} version '{
+                        FileVersionInfo.GetVersionInfo(applicationPath)
+                            .ProductVersion
+                    }' from {applicationPath}");
+
+            return applicationPath;
         }
 
         private static string FindExe(string exeToFind)

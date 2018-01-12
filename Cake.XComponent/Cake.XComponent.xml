@@ -6,48 +6,135 @@
     <members>
         <member name="T:Cake.XComponent.Exception.XComponentException">
             <summary>
-            
+            XComponent Exception
             </summary>
         </member>
         <member name="M:Cake.XComponent.Exception.XComponentException.#ctor(System.String)">
             <summary>
-            
+            Constructor of XComponent Exception
             </summary>
-            <param name="message"></param>
+            <param name="message">The exception message</param>
         </member>
-        <member name="T:Cake.XComponent.XcStudioAliases">
+        <member name="T:Cake.XComponent.Platform">
             <summary>
-            Cake Extension for XComponent Studio
+            Specifies the bits-per-word of the process
             </summary>
         </member>
-        <member name="M:Cake.XComponent.XcStudioAliases.SetXcStudioPath(Cake.Core.ICakeContext,System.String)">
+        <member name="F:Cake.XComponent.Platform.X64">
+            <summary>
+            Represents the 64-bit platform.
+            </summary>
+        </member>
+        <member name="F:Cake.XComponent.Platform.X86">
+            <summary>
+            Represents the 32-bit platform.
+            </summary>
+        </member>
+        <member name="T:Cake.XComponent.XcPathAliases">
+            <summary>
+            Cake Extension for XComponent Applications
+            </summary>
+        </member>
+        <member name="M:Cake.XComponent.XcPathAliases.GetXcStudioPath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
+            <summary>
+            This method returns the path of XcStudio specified by the user or search it in the tools directory.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="platform">The platform used to launch the application</param>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcStudio can't be found in tools directory.</exception>
+            <returns>The XcStudio path</returns>
+        </member>
+        <member name="M:Cake.XComponent.XcPathAliases.SetXcStudioPath(Cake.Core.ICakeContext,System.String)">
             <summary>
             This method sets the path of XcStudio that will be used by all other commands.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="xcStudioPath">The XcStudio Path</param>
         </member>
-        <member name="M:Cake.XComponent.XcStudioAliases.XcStudioCreateLauncher(Cake.Core.ICakeContext,System.String,System.String)">
+        <member name="M:Cake.XComponent.XcPathAliases.GetXcBuildPath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
             <summary>
-            This method creates a .bat file to easily launch a XComponent project using the version of XComponent Studio found in the tools folder.
+            This method returns the path of XcBuild specified by the user or search it in the tools directory.
             </summary>
             <param name="context">The Cake Context</param>
-            <param name="projectPath">The path of the project to launch with XComponent Studio</param>
-            <param name="output">The output path to write the launcher</param>
+            <param name="platform">The platform used to launch the application</param>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcBuild can't be found in tools directory.</exception>
+            <returns>The XcBuild path</returns>
         </member>
-        <member name="T:Cake.XComponent.XcBuildAliases">
-            <summary>
-            Cake Extension for XComponent Build
-            </summary>
-        </member>
-        <member name="M:Cake.XComponent.XcBuildAliases.SetXcBuildPath(Cake.Core.ICakeContext,System.String)">
+        <member name="M:Cake.XComponent.XcPathAliases.SetXcBuildPath(Cake.Core.ICakeContext,System.String)">
             <summary>
             This method sets the path of XcBuild that will be used by all other commands.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="xcBuildPath">The XcBuild Path</param>
         </member>
-        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildBuild(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Cake.XComponent.XcPathAliases.GetXcRuntimePath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
+            <summary>
+            This method returns the path of XcRuntime specified by the user or search it in the tools directory.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="platform">The platform used to launch the application</param>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcRuntime can't be found in tools directory.</exception>
+            <returns>The XcRuntime path</returns>
+        </member>
+        <member name="M:Cake.XComponent.XcPathAliases.SetXcRuntimePath(Cake.Core.ICakeContext,System.String)">
+            <summary>
+            This method sets the path of XcRuntime that will be used by all other commands.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="xcRuntimePath">The XcRuntime Path</param>
+        </member>
+        <member name="M:Cake.XComponent.XcPathAliases.GetXcBridgePath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
+            <summary>
+            This method returns the path of XcBridge specified by the user or search it in the tools directory.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="platform">The platform used to launch the application</param>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcBridge can't be found in tools directory.</exception>
+            <returns>The XcBridge path</returns>
+        </member>
+        <member name="M:Cake.XComponent.XcPathAliases.SetXcBridgePath(Cake.Core.ICakeContext,System.String)">
+            <summary>
+            This method sets the path of XcBridge that will be used by all other commands.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="xcBridgePath">The XcBridge Path</param>
+        </member>
+        <member name="M:Cake.XComponent.XcPathAliases.GetXcSpyPath(Cake.Core.ICakeContext,Cake.XComponent.Platform)">
+            <summary>
+            This method returns the path of XcSpy specified by the user or search it in the tools directory.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="platform">The platform used to launch the application</param>
+            <exception cref="T:Cake.XComponent.Exception.XComponentException">Thrown when XcSpy can't be found in tools directory.</exception>
+            <returns>The XcSpy path</returns>
+        </member>
+        <member name="M:Cake.XComponent.XcPathAliases.SetXcSpyPath(Cake.Core.ICakeContext,System.String)">
+            <summary>
+            This method sets the path of XcSpy that will be used by all other commands.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="xcSpyPath">The XcSpy Path</param>
+        </member>
+        <member name="T:Cake.XComponent.XcStudioAliases">
+            <summary>
+            Cake Extension for XComponent Studio
+            </summary>
+        </member>
+        <member name="M:Cake.XComponent.XcStudioAliases.XcStudioCreateLauncher(Cake.Core.ICakeContext,System.String,System.String,Cake.XComponent.Platform)">
+            <summary>
+            This method creates a .bat file to easily launch a XComponent project using the version of XComponent Studio found in the tools folder.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="projectPath">The path of the project to launch with XComponent Studio</param>
+            <param name="output">The output path to write the launcher</param>
+            <param name="platform">The platform used to launch the application</param>
+        </member>
+        <member name="T:Cake.XComponent.XcBuildAliases">
+            <summary>
+            Cake Extension for XComponent Build
+            </summary>
+        </member>
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildBuild(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String,Cake.XComponent.Platform)">
             <summary>
             This method builds the XComponent project.
             </summary>
@@ -57,8 +144,9 @@
             <param name="environment">The XComponent environment (Dev/Prod/...)</param>
             <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
             <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+            <param name="platform">The platform used to launch the application</param>
         </member>
-        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildBuildComponent(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildBuildComponent(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,Cake.XComponent.Platform)">
             <summary>
             This method builds the XComponent project.
             </summary>
@@ -72,8 +160,9 @@
             <param name="serializationtype">The serialization type</param>
             <param name="logkeys">The list of log keys used by this component</param>
             <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+            <param name="platform">The platform used to launch the application</param>
         </member>
-        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExportRuntimes(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.Boolean,System.String)">
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExportRuntimes(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.Boolean,System.String,Cake.XComponent.Platform)">
             <summary>
             This method exports runtimes for an XComponent project.
             </summary>
@@ -84,13 +173,15 @@
             <param name="environment">The XComponent environment (Dev/Prod/...)</param>
             <param name="keepFolderContent">A flag to control whether to ovewrite folder content or not</param>
             <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+            <param name="platform">The platform used to launch the application</param>
         </member>
-        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExecuteCommand(Cake.Core.ICakeContext,System.String)">
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExecuteCommand(Cake.Core.ICakeContext,System.String,Cake.XComponent.Platform)">
             <summary>
             This method executes XcBuild passing arguments.
             </summary>
             <param name="context">The Cake Context</param>
             <param name="arguments">Arguments to pass to XComponent Build</param>
+            <param name="platform">The platform used to launch the application</param>
         </member>
     </members>
 </doc>

@@ -12,14 +12,10 @@ namespace Cake.XComponent
         private readonly ICakeContext _context;
         private readonly string _xcBuildPath;
 
-        internal static string XcBuildPath { get; set; }
-
-        internal XcBuild(ICakeContext context)
+        internal XcBuild(ICakeContext context, Platform platform)
         {
             _context = context;
-            _xcBuildPath = string.IsNullOrEmpty(XcBuildPath)
-                ? new PathFinder(context.Log).FindXcBuild()
-                : XcBuildPath;
+            _xcBuildPath = new PathFinder(context.Log).FindXcBuild(platform);
         }
 
         internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")

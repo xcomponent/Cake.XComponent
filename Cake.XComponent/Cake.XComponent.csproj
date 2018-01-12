@@ -48,7 +48,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Exception\XComponentException.cs" />
+    <Compile Include="Platform.cs" />
     <Compile Include="Utils\PathFinder.cs" />
+    <Compile Include="XcPathAliases.cs" />
     <Compile Include="XcStudio.cs" />
     <Compile Include="XcStudioAliases.cs" />
     <Compile Include="XcBuild.cs" />
