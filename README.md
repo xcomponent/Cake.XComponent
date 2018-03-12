@@ -14,4 +14,4 @@ You can easily reference Cake.XComponent directly in your build script via a cak
 
 Please visit the Cake Documentation for a list of available aliases:  
 
-http://cakebuild.net/api/Cake.XComponent/XcToolsAliases/
+http://cakebuild.net/api/Cake.XComponent/
