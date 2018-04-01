@@ -175,6 +175,19 @@
             <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
             <param name="platform">The platform used to launch the application</param>
         </member>
+        <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExportInterface(Cake.Core.ICakeContext,System.String,System.String,System.String,System.String,System.Boolean,System.String,Cake.XComponent.Platform)">
+            <summary>
+            This method exports interface for an XComponent project.
+            </summary>
+            <param name="context">The Cake Context</param>
+            <param name="project">The project to export interface for</param>
+            <param name="output">The folder where to export interface</param>
+            <param name="compiltationMode">The compilation mode (Debug/Release)</param>
+            <param name="environment">The XComponent environment (Dev/Prod/...)</param>
+            <param name="keepFolderContent">A flag to control whether to ovewrite folder content or not</param>
+            <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
+            <param name="platform">The platform used to launch the application</param>
+        </member>
         <member name="M:Cake.XComponent.XcBuildAliases.XcBuildExecuteCommand(Cake.Core.ICakeContext,System.String,Cake.XComponent.Platform)">
             <summary>
             This method executes XcBuild passing arguments.
