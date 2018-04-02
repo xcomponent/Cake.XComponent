@@ -75,6 +75,15 @@ namespace Cake.XComponent.Test
 
         [TestCase(Platform.X64)]
         [TestCase(Platform.X86)]
+        public void IfXcBuildIsProperlyExecuted_XcBuildExportInterface_ShouldReturn(Platform platform)
+        {
+            WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
+            var cakeContext = Substitute.For<ICakeContext>();
+            cakeContext.XcBuildExportInterface("", "", "Debug", "Dev", false, "", platform);
+        }
+
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
         public void IfXcBuildIsProperlyExecuted_XcBuildExecuteCommand_ShouldReturn(Platform platform)
         {
             WriteResource("Cake.XComponent.Test.Input.Cake.XComponent.Test.FakeExe.exe", _xcBuildDirectory, PathFinder.GetXcBuildProgram(platform));
@@ -98,6 +107,15 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             cakeContext.XcBuildExportRuntimes("", "", "Debug", "Dev", false, "", platform);
+        }
+
+        [TestCase(Platform.X64)]
+        [TestCase(Platform.X86)]
+        [ExpectedException(typeof(XComponentException))]
+        public void IfXcBuildIsNotPresent_XcBuildExportInterface_ShouldThrowAnException(Platform platform)
+        {
+            var cakeContext = Substitute.For<ICakeContext>();
+            cakeContext.XcBuildExportInterface("", "", "Debug", "Dev", false, "", platform);
         }
 
         [TestCase(Platform.X64)]
