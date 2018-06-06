@@ -19,7 +19,15 @@ Task("Build")
   .Does(() =>
 {
 	NuGetRestore(GetFiles("Cake.XComponent.sln"), new NuGetRestoreSettings { NoCache = true });
-	MSBuild("Cake.XComponent.sln", new MSBuildSettings { Configuration = configuration });
+	MSBuild(
+		"Cake.XComponent.sln", 
+		new MSBuildSettings { 
+			Configuration = configuration,
+			ToolVersion = MSBuildToolVersion.VS2017
+		}
+		.WithTarget("restore")
+		.WithTarget("build")
+	);
 });
 
 Task("Test")
@@ -32,12 +40,16 @@ Task("Test")
 Task("Package")
   .Does(() =>
 {
-	CreateDirectory("nuget");
-	NuGetPack("Cake.XComponent.nuspec", new NuGetPackSettings()
-    { 
-      OutputDirectory = @"./nuget",
-	  Version = packageVersion
-    });
+	MSBuild(
+		"Cake.XComponent/Cake.XComponent.csproj", 
+		new MSBuildSettings { 
+			Configuration = configuration,
+			ToolVersion = MSBuildToolVersion.VS2017
+		}
+		.WithProperty("PackageVersion", packageVersion)
+		.WithProperty("PackageOutputPath", @"../nuget")
+		.WithTarget("pack")
+	);
 });
 
 Task("Deploy")

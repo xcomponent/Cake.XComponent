@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Cake.XComponent.Test</RootNamespace>
     <AssemblyName>Cake.XComponent.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -65,16 +65,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Cake.XComponent\Cake.XComponent.csproj">
-      <Project>{2b302a0a-dd28-4941-9e88-7789590daf5c}</Project>
-      <Name>Cake.XComponent</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Input\XComponent.XcBuild.exe" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Input\Cake.XComponent.Test.FakeExe.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cake.XComponent\Cake.XComponent.csproj">
+      <Project>{a79659f8-6b6a-4e67-ae59-005b295681e0}</Project>
+      <Name>Cake.XComponent</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

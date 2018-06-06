@@ -1,8 +1,10 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Cake.Core.Diagnostics;
 using Cake.XComponent.Exception;
+[assembly: InternalsVisibleTo("Cake.XComponent.Test")]
 
 namespace Cake.XComponent.Utils
 {
