@@ -4,21 +4,12 @@ namespace Cake.XComponent.Test
 {
     public abstract class XComponentTestBase
     {
-        public void WriteResource(string resource, string outputDir, string file)
-        {
-            using (var stream = typeof(XComponentTestBase).Assembly.GetManifestResourceStream(resource))
-            {
-                if (stream == null) return;
+        protected static string ToolsPath { get; set; }
 
-                using (var fileStream = new FileStream(Path.Combine(outputDir, file), FileMode.Create))
-                {
-                    for (var i = 0; i < stream.Length; i++)
-                    {
-                        fileStream.WriteByte((byte) stream.ReadByte());
-                    }
-                    fileStream.Close();
-                }
-            }
+        public void CreateFile(string outputDir, string file)
+        {
+            var outputFile = Path.Combine(outputDir, file);
+            File.Create(outputFile);
         }
     }
 }

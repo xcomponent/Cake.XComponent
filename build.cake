@@ -1,4 +1,4 @@
-#tool "nuget:?package=NUnit.Runners&version=2.6.4"
+#tool "nuget:?package=NUnit.ConsoleRunner&version=3.9.0"
 
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
@@ -18,6 +18,7 @@ Task("Build")
   .IsDependentOn("Clean")
   .Does(() =>
 {
+	DotNetCoreRestore("Cake.XComponent.sln");
 	DotNetCoreBuild(
 		"Cake.XComponent.sln", 
 		new DotNetCoreBuildSettings { 
@@ -26,12 +27,19 @@ Task("Build")
 	);
 });
 
+
 Task("Test")
   .IsDependentOn("Build")
   .Does(() =>
 {
-	var assemblies = GetFiles("./**/bin/*/*.Test*.dll");
-	NUnit(assemblies);
+	var projectFiles = GetFiles("./**/*Test.csproj");
+	foreach(var file in projectFiles)
+	{
+			DotNetCoreTest(file.FullPath);
+	}
+
+	// var assemblies = GetFiles("./**/bin/*/*.Test*.dll");
+	// NUnit3(assemblies);
 });
 
 Task("Package")

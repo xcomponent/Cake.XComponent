@@ -4,7 +4,6 @@ jobs:
   build:
     docker:
       - image: microsoft/dotnet:2.1-sdk
-    resource_class: large
     steps:
       - checkout
       - run:
@@ -18,16 +17,16 @@ jobs:
                 - v1-nuget-
       - run:
           name: Clean
-          command: ./build-linux.sh -t Clean --exclusive
+          command: ./build.sh -t Clean -exclusive
       - run:
           name: Build
-          command: ./build-linux.sh -t Build --exclusive
+          command: ./build.sh -t Build -exclusive
       - run:
           name: Test
-          command: ./build-linux.sh -t Test --exclusive
+          command: ./build.sh -t Test -exclusive
       - run:
           name: Package
-          command: ./build-linux.sh -t Package --exclusive
+          command: ./build.sh -t Package -exclusive
       - save_cache:
             name: Save nuget cache
             key: v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
