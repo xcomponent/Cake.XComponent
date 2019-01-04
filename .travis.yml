@@ -1,7 +1,0 @@
-language: csharp
-sudo: true
-dotnet: 2.1.0
-os:
-- linux
-script:
-- ./build.sh -t Test
