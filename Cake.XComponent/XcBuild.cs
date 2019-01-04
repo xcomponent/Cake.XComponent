@@ -1,108 +1,56 @@
-using System.Diagnostics;
-using System.IO;
 using Cake.Core;
-using Cake.Core.Diagnostics;
-using Cake.XComponent.Exception;
 using Cake.XComponent.Utils;
+using System.Runtime.CompilerServices;
+[assembly:InternalsVisibleTo("Cake.XComponent.Test")]
 
 namespace Cake.XComponent
 {
     internal sealed class XcBuild
     {
-        private readonly ICakeContext _context;
-        private readonly string _xcBuildPath;
+        private readonly ICommandExecutor _processCommandExecutor;
+        
+        internal static ICommandExecutor TestCommandExecutor { get; set; }
 
         internal XcBuild(ICakeContext context, Platform platform)
         {
-            _context = context;
-            _xcBuildPath = new PathFinder(context.Log).FindXcBuild(platform);
+            _processCommandExecutor = new ProcessCommandExecutor(context, new PathFinder(context.Log).FindXcBuild(platform));
         }
 
         internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
         {
             var arguments = $"--build --project={project} --compilationmode={compiltationMode} --env={environment} --vs={visualStudioVersion} {additionalArguments}";
-            ExecuteCommand(arguments);
+            GetCommandExecutor().ExecuteCommand(arguments);
         }
 
         internal void BuildComponent(string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string framework = "Framework452", string serializationtype = "Json", string logkeys = "", string additionalArguments = "")
         {
             var logKeysArgument = string.IsNullOrEmpty(logkeys) ? string.Empty : $"--logkeys={logkeys}";
             var arguments = $"--build --project={project} --component=\"{component}\" --compilationmode={compiltationMode} --env={environment} --vs={visualStudioVersion} --framework={framework} --serializationtype=\"{serializationtype}\" {logKeysArgument} {additionalArguments}";
-            ExecuteCommand(arguments);
+            GetCommandExecutor().ExecuteCommand(arguments);
         }
 
         internal void ExportRuntimes(string project, string output, string compiltationMode = "Debug", string environment = "Dev", bool keepFolderContent = false, string additionalArguments = "")
         {
             var keepFolderContentArgument = keepFolderContent ? "--keepfoldercontent " : string.Empty;
             var arguments = $"--exportRuntimes --project={project} --compilationmode={compiltationMode} --env={environment} {keepFolderContentArgument}--output={output} {additionalArguments}";
-            ExecuteCommand(arguments);
+            GetCommandExecutor().ExecuteCommand(arguments);
         }
         
         internal void ExportInterface(string project, string output, string compiltationMode = "Debug", string environment = "Dev", bool keepFolderContent = false, string additionalArguments = "")
         {
             var keepFolderContentArgument = keepFolderContent ? "--keepfoldercontent " : string.Empty;
             var arguments = $"--exportInterface --project={project} --compilationmode={compiltationMode} --env={environment} {keepFolderContentArgument}--output={output} {additionalArguments}";
-            ExecuteCommand(arguments);
+            GetCommandExecutor().ExecuteCommand(arguments);
         }
 
         internal void ExecuteCommand(string arguments)
         {
-            if (!File.Exists(_xcBuildPath))
-            {
-                throw new XComponentException($"XcBuild not found at {_xcBuildPath}");
-            }
-
-            var process = new Process
-            {
-                StartInfo =
-                {
-                    FileName = _xcBuildPath,
-                    Arguments = arguments,
-                    UseShellExecute = false,
-                    CreateNoWindow = true,
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true
-                }
-            };
-            process.OutputDataReceived += OnOutputDataReceived;
-            process.ErrorDataReceived += OnErrorDataReceived;
-            process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            process.WaitForExit();
-
-            if (process.ExitCode != 0)
-            {
-                throw new XComponentException("Error executing XcBuild");
-            }
-        }
-        
-        private void OnOutputDataReceived(object sender, DataReceivedEventArgs args)
-        {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                try
-                {
-                     _context.Log.Write(Verbosity.Normal, LogLevel.Information, args.Data);
-                }
-                catch
-                {
-                }
-            }
+            GetCommandExecutor().ExecuteCommand(arguments);
         }
 
-        private void OnErrorDataReceived(object sender, DataReceivedEventArgs args)
+        private ICommandExecutor GetCommandExecutor()
         {
-            if (!string.IsNullOrEmpty(args.Data))
-            {
-                try
-                {           
-                    _context.Log.Write(Verbosity.Normal, LogLevel.Error, args.Data);
-                }
-                catch
-                {
-                }
-            }
+            return TestCommandExecutor ?? _processCommandExecutor;
         }
     }
 }

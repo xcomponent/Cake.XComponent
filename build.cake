@@ -1,4 +1,4 @@
-#tool "nuget:?package=NUnit.Runners&version=2.6.4"
+#tool "nuget:?package=NUnit.ConsoleRunner&version=3.9.0"
 
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
@@ -18,41 +18,47 @@ Task("Build")
   .IsDependentOn("Clean")
   .Does(() =>
 {
-	NuGetRestore(GetFiles("Cake.XComponent.sln"), new NuGetRestoreSettings { NoCache = true });
-	MSBuild(
+	DotNetCoreRestore("Cake.XComponent.sln");
+	DotNetCoreBuild(
 		"Cake.XComponent.sln", 
-		new MSBuildSettings { 
+		new DotNetCoreBuildSettings { 
 			Configuration = configuration,
-			ToolVersion = MSBuildToolVersion.VS2017
 		}
-		.WithTarget("restore")
-		.WithTarget("build")
 	);
 });
 
+
 Task("Test")
+  .IsDependentOn("Build")
   .Does(() =>
 {
-	var assemblies = GetFiles("./**/bin/*/*.Test.dll");
-	NUnit(assemblies);
+	var projectFiles = GetFiles("./**/*Test.csproj");
+	foreach(var file in projectFiles)
+	{
+			DotNetCoreTest(file.FullPath);
+	}
+
+	// var assemblies = GetFiles("./**/bin/*/*.Test*.dll");
+	// NUnit3(assemblies);
 });
 
 Task("Package")
+  .IsDependentOn("Test")
   .Does(() =>
 {
-	MSBuild(
+	DotNetCorePack(
 		"Cake.XComponent/Cake.XComponent.csproj", 
-		new MSBuildSettings { 
+		new DotNetCorePackSettings { 
 			Configuration = configuration,
-			ToolVersion = MSBuildToolVersion.VS2017
+			OutputDirectory = @"nuget",
+			VersionSuffix = packageVersion,
+			MSBuildSettings = new DotNetCoreMSBuildSettings{}.SetVersion(packageVersion),
 		}
-		.WithProperty("PackageVersion", packageVersion)
-		.WithProperty("PackageOutputPath", @"../nuget")
-		.WithTarget("pack")
 	);
 });
 
 Task("Deploy")
+  .IsDependentOn("Package")
   .Does(() =>
 {
 	if (!string.IsNullOrEmpty(apiKey))

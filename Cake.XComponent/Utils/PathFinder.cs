@@ -44,7 +44,7 @@ namespace Cake.XComponent.Utils
 
         internal static string XcSpyPath { get; set; }
 
-        public PathFinder(ICakeLog cakeLog)
+        public  PathFinder(ICakeLog cakeLog)
         {
             _cakeLog = cakeLog;
         }
@@ -112,8 +112,7 @@ namespace Cake.XComponent.Utils
 
                 _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
                     $@"{applicationName} path provided by user: using {applicationName} version '{
-                            FileVersionInfo.GetVersionInfo(userPath)
-                                .ProductVersion
+                            GetVersion(userPath)
                         }' from {userPath}");
                 return userPath;
             }
@@ -121,11 +120,26 @@ namespace Cake.XComponent.Utils
             var applicationPath = FindExe(exeToFind);
             _cakeLog.Write(Verbosity.Normal, LogLevel.Information,
                 $@"{applicationName} auto-detection: using {applicationName} version '{
-                        FileVersionInfo.GetVersionInfo(applicationPath)
-                            .ProductVersion
+                        GetVersion(applicationPath)
                     }' from {applicationPath}");
 
             return applicationPath;
+        }
+
+        private string GetVersion(string path)
+        {
+            string version = "Unknown";
+
+            try
+            {
+                version = FileVersionInfo.GetVersionInfo(path).ProductVersion;
+            }
+            catch (System.Exception)
+            {
+                _cakeLog.Write(Verbosity.Normal, LogLevel.Warning, $"Unable to retrieve version from file : {path}");
+            }
+
+            return version;
         }
 
         private static string FindExe(string exeToFind)

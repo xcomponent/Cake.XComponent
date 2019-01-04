@@ -1,0 +1,34 @@
+version: 2
+        
+jobs:
+  build:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - checkout
+      - run:
+          name: Generate cache shasum
+          command: find . -name "packages.config" -exec shasum {} \+ | sort -n > shasum.tmp
+      - restore_cache:
+            name: Restore nuget cache
+            keys:
+                - v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+                - v1-nuget-{{ .Branch }}-
+                - v1-nuget-
+      - run:
+          name: Clean
+          command: ./build.sh -t Clean -exclusive
+      - run:
+          name: Build
+          command: ./build.sh -t Build -exclusive
+      - run:
+          name: Test
+          command: ./build.sh -t Test -exclusive
+      - run:
+          name: Package
+          command: ./build.sh -t Package -exclusive
+      - save_cache:
+            name: Save nuget cache
+            key: v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+            paths:
+              - /home/circleci/.nuget

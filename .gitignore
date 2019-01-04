@@ -15,3 +15,4 @@ _NCrunch*
 *.user
 
 *.ncrunchsolution
+NuGet.Config
