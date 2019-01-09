@@ -122,7 +122,7 @@ if(-Not $SkipToolPackageRestore.IsPresent) {
     }
 
     Write-Verbose -Message "Restoring tools from NuGet..."
-    $NuGetOutput = Invoke-Expression "&dotnet restore $PACKAGES_CSPROJ --packages $TOOLS_DIR"
+    $NuGetOutput = Invoke-Expression "dotnet restore '$PACKAGES_CSPROJ' --packages '$TOOLS_DIR'"
 
     if ($LASTEXITCODE -ne 0) {
         Throw "An error occurred while restoring NuGet tools."
