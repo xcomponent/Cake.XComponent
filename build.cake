@@ -37,9 +37,6 @@ Task("Test")
 	{
 			DotNetCoreTest(file.FullPath);
 	}
-
-	// var assemblies = GetFiles("./**/bin/*/*.Test*.dll");
-	// NUnit3(assemblies);
 });
 
 Task("Package")
@@ -64,7 +61,7 @@ Task("Deploy")
 	if (!string.IsNullOrEmpty(apiKey))
 	{
 		var package = "./nuget/Cake.XComponent." + packageVersion + ".nupkg";
-		NuGetPush(package, new NuGetPushSettings 
+		DotNetCoreNuGetPush(package, new DotNetCoreNuGetPushSettings 
 		{
 			Source = "https://www.nuget.org/api/v2/package",
 			ApiKey = apiKey
