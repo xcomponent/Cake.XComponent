@@ -53,6 +53,11 @@ namespace Cake.XComponent.Utils
         {
             return FindApplicationPath("XcStudio", XcStudioPath, GetXcStudioProgram(platform));
         }
+        
+        internal string FindXcStudioDirectory(Platform platform)
+        {
+            return Path.GetDirectoryName(FindXcStudio(platform));
+        }
 
         internal static string GetXcStudioProgram(Platform platform)
         {
@@ -62,6 +67,11 @@ namespace Cake.XComponent.Utils
         internal string FindXcBuild(Platform platform)
         {
             return FindApplicationPath("XcBuild", XcBuildPath, GetXcBuildProgram(platform));
+        }
+        
+        internal string FindXcBuildDirectory(Platform platform)
+        {
+            return Path.GetDirectoryName(FindXcBuild(platform));
         }
 
         internal static string GetXcBuildProgram(Platform platform)
@@ -73,6 +83,11 @@ namespace Cake.XComponent.Utils
         {
             return FindApplicationPath("XcRuntime", XcRuntimePath, GetXcRuntimeProgram(platform));
         }
+        
+        internal string FindXcRuntimeDirectory(Platform platform)
+        {
+            return Path.GetDirectoryName(FindXcRuntime(platform));
+        }
 
         internal static string GetXcRuntimeProgram(Platform platform)
         {
@@ -83,6 +98,11 @@ namespace Cake.XComponent.Utils
         {
             return FindApplicationPath("XcBridge", XcBridgePath, GetXcBridgeProgram(platform));
         }
+        
+        internal string FindXcBridgeDirectory(Platform platform)
+        {
+            return Path.GetDirectoryName(FindXcBridge(platform));
+        }
 
         internal static string GetXcBridgeProgram(Platform platform)
         {
@@ -92,6 +112,11 @@ namespace Cake.XComponent.Utils
         public string FindXcSpy(Platform platform)
         {
             return FindApplicationPath("XcSpy", XcSpyPath, GetXcSpyProgram(platform));
+        }
+        
+        internal string FindXcSpyDirectory(Platform platform)
+        {
+            return Path.GetDirectoryName(FindXcSpy(platform));
         }
 
         internal static string GetXcSpyProgram(Platform platform)
