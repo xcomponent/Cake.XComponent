@@ -26,6 +26,18 @@ namespace Cake.XComponent
         }
 
         /// <summary>
+        /// This method returns the directory of XcStudio specified by the user or search it in the tools directory.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="platform">The platform used to launch the application</param>
+        /// <returns></returns>
+        [CakeMethodAlias]
+        public static string GetXcStudioDirectory(this ICakeContext context, Platform platform = Platform.X64)
+        {
+            return new PathFinder(context.Log).FindXcStudioDirectory(platform);
+        }
+
+        /// <summary>
         /// This method sets the path of XcStudio that will be used by all other commands.
         /// </summary>
         /// <param name="context">The Cake Context</param>
@@ -47,6 +59,18 @@ namespace Cake.XComponent
         public static string GetXcBuildPath(this ICakeContext context, Platform platform = Platform.X64)
         {
             return new PathFinder(context.Log).FindXcBuild(platform);
+        }
+
+        /// <summary>
+        /// This method returns the directory of XcBuild specified by the user or search it in the tools directory.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="platform">The platform used to launch the application</param>
+        /// <returns></returns>
+        [CakeMethodAlias]
+        public static string GetXcBuildDirectory(this ICakeContext context, Platform platform = Platform.X64)
+        {
+            return new PathFinder(context.Log).FindXcBuildDirectory(platform);
         }
 
         /// <summary>
@@ -74,6 +98,18 @@ namespace Cake.XComponent
         }
 
         /// <summary>
+        /// This method returns the directory of XcRuntime specified by the user or search it in the tools directory.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="platform">The platform used to launch the application</param>
+        /// <returns></returns>
+        [CakeMethodAlias]
+        public static string GetXcRuntimeDirectory(this ICakeContext context, Platform platform = Platform.X64)
+        {
+            return new PathFinder(context.Log).FindXcRuntimeDirectory(platform);
+        }
+
+        /// <summary>
         /// This method sets the path of XcRuntime that will be used by all other commands.
         /// </summary>
         /// <param name="context">The Cake Context</param>
@@ -98,6 +134,18 @@ namespace Cake.XComponent
         }
 
         /// <summary>
+        /// This method returns the directory of XcBridge specified by the user or search it in the tools directory.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="platform">The platform used to launch the application</param>
+        /// <returns></returns>
+        [CakeMethodAlias]
+        public static string GetXcBridgeDirectory(this ICakeContext context, Platform platform = Platform.X64)
+        {
+            return new PathFinder(context.Log).FindXcBridgeDirectory(platform);
+        }
+
+        /// <summary>
         /// This method sets the path of XcBridge that will be used by all other commands.
         /// </summary>
         /// <param name="context">The Cake Context</param>
@@ -119,6 +167,18 @@ namespace Cake.XComponent
         public static string GetXcSpyPath(this ICakeContext context, Platform platform = Platform.X64)
         {
             return new PathFinder(context.Log).FindXcSpy(platform);
+        }
+        
+        /// <summary>
+        /// This method returns the directory of XcSpy specified by the user or search it in the tools directory.
+        /// </summary>
+        /// <param name="context">The Cake Context</param>
+        /// <param name="platform">The platform used to launch the application</param>
+        /// <returns></returns>
+        [CakeMethodAlias]
+        public static string GetXcSpyDirectory(this ICakeContext context, Platform platform = Platform.X64)
+        {
+            return new PathFinder(context.Log).FindXcSpyDirectory(platform);
         }
 
         /// <summary>

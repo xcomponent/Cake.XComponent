@@ -15,6 +15,7 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             Assert.DoesNotThrow(() => cakeContext.GetXcStudioPath(platform));
+            Assert.DoesNotThrow(() => cakeContext.GetXcStudioDirectory(platform));
         }
         
         [Test]
@@ -26,6 +27,8 @@ namespace Cake.XComponent.Test
 
             Assert.AreEqual(path, cakeContext.GetXcStudioPath(Platform.X64));
             Assert.AreEqual(path, cakeContext.GetXcStudioPath(Platform.X86));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcStudioDirectory(Platform.X64));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcStudioDirectory(Platform.X86));
         }
 
         [Test]
@@ -37,6 +40,8 @@ namespace Cake.XComponent.Test
 
             Assert.IsNull(cakeContext.GetXcStudioPath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcStudioPath(Platform.X86));
+            Assert.IsNull(cakeContext.GetXcStudioDirectory(Platform.X64));
+            Assert.IsNull(cakeContext.GetXcStudioDirectory(Platform.X86));
         }
 
         [TestCase(Platform.X64)]
@@ -45,6 +50,7 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             Assert.DoesNotThrow(() => cakeContext.GetXcBuildPath(platform));
+            Assert.DoesNotThrow(() => cakeContext.GetXcBuildDirectory(platform));
         }
 
         [Test]
@@ -56,6 +62,8 @@ namespace Cake.XComponent.Test
 
             Assert.AreEqual(path, cakeContext.GetXcBuildPath(Platform.X64));
             Assert.AreEqual(path, cakeContext.GetXcBuildPath(Platform.X86));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcBuildDirectory(Platform.X64));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcBuildDirectory(Platform.X86));
         }
 
         [Test]
@@ -67,6 +75,8 @@ namespace Cake.XComponent.Test
 
             Assert.IsNull(cakeContext.GetXcBuildPath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcBuildPath(Platform.X86));
+            Assert.IsNull(cakeContext.GetXcBuildDirectory(Platform.X64));
+            Assert.IsNull(cakeContext.GetXcBuildDirectory(Platform.X86));
         }
 
         [TestCase(Platform.X64)]
@@ -75,6 +85,7 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             Assert.DoesNotThrow(() => cakeContext.GetXcRuntimePath(platform));
+            Assert.DoesNotThrow(() => cakeContext.GetXcRuntimeDirectory(platform));
         }
 
         [Test]
@@ -86,6 +97,8 @@ namespace Cake.XComponent.Test
 
             Assert.AreEqual(path, cakeContext.GetXcRuntimePath(Platform.X64));
             Assert.AreEqual(path, cakeContext.GetXcRuntimePath(Platform.X86));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcRuntimeDirectory(Platform.X64));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcRuntimeDirectory(Platform.X86));
         }
 
         [Test]
@@ -97,6 +110,8 @@ namespace Cake.XComponent.Test
 
             Assert.IsNull(cakeContext.GetXcRuntimePath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcRuntimePath(Platform.X86));
+            Assert.IsNull(cakeContext.GetXcRuntimeDirectory(Platform.X64));
+            Assert.IsNull(cakeContext.GetXcRuntimeDirectory(Platform.X86));
         }
 
         [TestCase(Platform.X64)]
@@ -105,6 +120,7 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             Assert.DoesNotThrow(() => cakeContext.GetXcBridgePath(platform));
+            Assert.DoesNotThrow(() => cakeContext.GetXcBridgeDirectory(platform));
         }
 
         [Test]
@@ -116,6 +132,8 @@ namespace Cake.XComponent.Test
 
             Assert.AreEqual(path, cakeContext.GetXcBridgePath(Platform.X64));
             Assert.AreEqual(path, cakeContext.GetXcBridgePath(Platform.X86));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcBridgeDirectory(Platform.X64));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcBridgeDirectory(Platform.X86));
         }
 
         [Test]
@@ -127,6 +145,8 @@ namespace Cake.XComponent.Test
 
             Assert.IsNull(cakeContext.GetXcBridgePath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcBridgePath(Platform.X86));
+            Assert.IsNull(cakeContext.GetXcBridgeDirectory(Platform.X64));
+            Assert.IsNull(cakeContext.GetXcBridgeDirectory(Platform.X86));
         }
 
         [TestCase(Platform.X64)]
@@ -135,6 +155,7 @@ namespace Cake.XComponent.Test
         {
             var cakeContext = Substitute.For<ICakeContext>();
             Assert.DoesNotThrow(() => cakeContext.GetXcSpyPath(platform));
+            Assert.DoesNotThrow(() => cakeContext.GetXcSpyDirectory(platform));
         }
 
         [Test]
@@ -146,6 +167,8 @@ namespace Cake.XComponent.Test
 
             Assert.AreEqual(path, cakeContext.GetXcSpyPath(Platform.X64));
             Assert.AreEqual(path, cakeContext.GetXcSpyPath(Platform.X86));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcSpyDirectory(Platform.X64));
+            Assert.AreEqual(ToolsPath, cakeContext.GetXcSpyDirectory(Platform.X86));
         }
 
         [Test]
@@ -157,6 +180,8 @@ namespace Cake.XComponent.Test
 
             Assert.IsNull(cakeContext.GetXcSpyPath(Platform.X64));
             Assert.IsNull(cakeContext.GetXcSpyPath(Platform.X86));
+            Assert.IsNull(cakeContext.GetXcSpyDirectory(Platform.X64));
+            Assert.IsNull(cakeContext.GetXcSpyDirectory(Platform.X86));
         }
     }
 }
