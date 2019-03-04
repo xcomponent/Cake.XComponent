@@ -98,7 +98,7 @@ jobs:
           at: /root/project
       - run:
           name: Deploy nuget package
-          command: ./build.sh -t Deploy -configuration=Release -packageVersion=$CIRCLE_TAG -ApiKey=$NUGET_API_KEY -exclusive
+          command: ./build.sh -t Deploy -buildConfiguration=Release -buildVersion=$CIRCLE_TAG -nugetKey=$NUGET_API_KEY -exclusive
 
 workflows:
   version: 2
