@@ -50,6 +50,10 @@ jobs:
           name: Build
           command: ./build.sh -t Build
       - *save_nuget
+      - persist_to_workspace:
+          root: /root/project
+          paths:
+            - Cake.XComponent
 
   task_test:
     docker:
