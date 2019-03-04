@@ -26,7 +26,7 @@ references:
       name: Save nuget cache
       key: v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
       paths:
-          - /home/circleci/.nuget
+          - /root/.nuget
 
 jobs:
   checkout_code:
