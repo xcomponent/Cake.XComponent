@@ -4,17 +4,17 @@ references:
     restore_cache:
       name: Restore checked out code
       keys:
-        - v1-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
-        - v1-cakexcomponent-repo-{{ .Branch }}-
-        - v1-cakexcomponent-repo-
+        - v2-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
+        - v2-cakexcomponent-repo-{{ .Branch }}-
+        - v2-cakexcomponent-repo-
   
   restore_nuget: &restore_nuget
     restore_cache:
       name: Restore nuget cache
       keys:
-        - v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
-        - v1-nuget-{{ .Branch }}-
-        - v1-nuget-
+        - v2-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+        - v2-nuget-{{ .Branch }}-
+        - v2-nuget-
 
   generate_nuget_shasum: &generate_nuget_shasum
     run:
@@ -24,7 +24,7 @@ references:
   save_nuget: &save_nuget
     save_cache:
       name: Save nuget cache
-      key: v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+      key: v2-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
       paths:
           - /root/.nuget
 
@@ -35,7 +35,7 @@ jobs:
     steps:
       - checkout
       - save_cache:
-          key: v1-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
+          key: v2-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
           paths:
             - .
 
