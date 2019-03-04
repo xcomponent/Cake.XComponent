@@ -2,9 +2,9 @@
 #addin "nuget:?package=Cake.DoInDirectory&version=3.2.0"
 
 var target = Argument("target", "Build");
-var configuration = Argument("configuration", "Release");
-var packageVersion = Argument("PackageVersion", "8.8.8");
-var apiKey = Argument("ApiKey", "");
+var configuration = Argument("buildConfiguration", "Debug");
+var packageVersion = Argument("buildVersion", "8.8.8");
+var apiKey = Argument("nugetKey", "");
 
 Task("Clean")
     .Does(() =>
