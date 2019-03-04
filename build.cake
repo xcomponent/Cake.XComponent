@@ -1,4 +1,5 @@
 #tool "nuget:?package=NUnit.ConsoleRunner&version=3.9.0"
+#addin "nuget:?package=Cake.DoInDirectory&version=3.2.0"
 
 var target = Argument("target", "Build");
 var configuration = Argument("configuration", "Release");
@@ -23,6 +24,8 @@ Task("Build")
 		"Cake.XComponent.sln", 
 		new DotNetCoreBuildSettings { 
 			Configuration = configuration,
+			VersionSuffix = packageVersion,
+			MSBuildSettings = new DotNetCoreMSBuildSettings{}.SetVersion(packageVersion),
 		}
 	);
 });
@@ -47,6 +50,8 @@ Task("Package")
 		"Cake.XComponent/Cake.XComponent.csproj", 
 		new DotNetCorePackSettings { 
 			Configuration = configuration,
+			IncludeSymbols = true,
+			NoBuild = true,
 			OutputDirectory = @"nuget",
 			VersionSuffix = packageVersion,
 			MSBuildSettings = new DotNetCoreMSBuildSettings{}.SetVersion(packageVersion),
@@ -60,11 +65,14 @@ Task("Deploy")
 {
 	if (!string.IsNullOrEmpty(apiKey))
 	{
-		var package = "./nuget/Cake.XComponent." + packageVersion + ".nupkg";
-		DotNetCoreNuGetPush(package, new DotNetCoreNuGetPushSettings 
+		DoInDirectory("./nuget", () =>
 		{
-			Source = "https://www.nuget.org/api/v2/package",
-			ApiKey = apiKey
+			var package = "Cake.XComponent." + packageVersion + ".nupkg";
+			DotNetCoreNuGetPush(package, new DotNetCoreNuGetPushSettings 
+			{
+				Source = "https://api.nuget.org/v3/index.json",
+				ApiKey = apiKey
+			});
 		});
 	}
 	else

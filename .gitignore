@@ -16,3 +16,6 @@ _NCrunch*
 
 *.ncrunchsolution
 NuGet.Config
+
+# Nuget package
+nuget/

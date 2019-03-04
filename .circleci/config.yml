@@ -1,34 +1,145 @@
 version: 2
-        
+references:
+  restore_repo: &restore_repo
+    restore_cache:
+      name: Restore checked out code
+      keys:
+        - v2-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
+        - v2-cakexcomponent-repo-{{ .Branch }}-
+        - v2-cakexcomponent-repo-
+  
+  restore_nuget: &restore_nuget
+    restore_cache:
+      name: Restore nuget cache
+      keys:
+        - v2-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+        - v2-nuget-{{ .Branch }}-
+        - v2-nuget-
+
+  generate_nuget_shasum: &generate_nuget_shasum
+    run:
+      name: Generate cache shasum
+      command: find . -name "*.csproj" -exec shasum {} \+ | sort -n > shasum.tmp
+
+  save_nuget: &save_nuget
+    save_cache:
+      name: Save nuget cache
+      key: v2-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+      paths:
+          - /root/.nuget
+
 jobs:
-  build:
+  checkout_code:
     docker:
       - image: microsoft/dotnet:2.1-sdk
     steps:
       - checkout
-      - run:
-          name: Generate cache shasum
-          command: find . -name "packages.config" -exec shasum {} \+ | sort -n > shasum.tmp
-      - restore_cache:
-            name: Restore nuget cache
-            keys:
-                - v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
-                - v1-nuget-{{ .Branch }}-
-                - v1-nuget-
-      - run:
-          name: Clean
-          command: ./build.sh -t Clean -exclusive
+      - save_cache:
+          key: v2-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+
+  build:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - *restore_repo
+      - *generate_nuget_shasum
+      - *restore_nuget
       - run:
           name: Build
-          command: ./build.sh -t Build -exclusive
+          command: ./build.sh -t Build
+      - *save_nuget
+      - persist_to_workspace:
+          root: /root/project
+          paths:
+            - Cake.XComponent
+
+  test:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - *restore_repo
+      - *generate_nuget_shasum
+      - *restore_nuget
+      - attach_workspace:
+          at: /root/project
       - run:
           name: Test
           command: ./build.sh -t Test -exclusive
+      - *save_nuget
+
+  package:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - *restore_repo
+      - *generate_nuget_shasum
+      - *restore_nuget
+      - attach_workspace:
+          at: /root/project
       - run:
           name: Package
           command: ./build.sh -t Package -exclusive
-      - save_cache:
-            name: Save nuget cache
-            key: v1-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
-            paths:
-              - /home/circleci/.nuget
+      - *save_nuget
+      - persist_to_workspace:
+          root: /root/project
+          paths:
+            - nuget
+
+  deploy_nuget:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - *restore_repo
+      - *generate_nuget_shasum
+      - *restore_nuget
+      - attach_workspace:
+          at: /root/project
+      - run:
+          name: Deploy nuget package
+          command: ./build.sh -t Deploy -configuration=Release -packageVersion=$CIRCLE_TAG -ApiKey=$NUGET_API_KEY -exclusive
+
+workflows:
+  version: 2
+  cake_xcomponent:
+    jobs:
+      - checkout_code:
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              only: /.*/
+      - build:
+          requires:
+          - checkout_code
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              only: /.*/
+      - test:
+          requires:
+          - build
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              only: /.*/
+      - package:
+          requires:
+          - test
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              only: /.*/
+      - deploy_nuget:
+          requires:
+          - package
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              ignore: /.*/
+
