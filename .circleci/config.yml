@@ -54,6 +54,7 @@ jobs:
           root: /root/project
           paths:
             - Cake.XComponent
+            - Cake.XComponent.Test
 
   task_test:
     docker:
