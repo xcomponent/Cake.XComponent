@@ -29,30 +29,55 @@ references:
           - /home/circleci/.nuget
 
 jobs:
-  checkout_build:
+  checkout_code:
     docker:
       - image: microsoft/dotnet:2.1-sdk
     steps:
       - checkout
-      - *generate_nuget_shasum
-      - *restore_nuget
-      - run:
-          name: Clean
-          command: ./build.sh -t Clean -exclusive
-      - run:
-          name: Build
-          command: ./build.sh -t Build -exclusive
-      - run:
-          name: Test
-          command: ./build.sh -t Test -exclusive
-      - run:
-          name: Package
-          command: ./build.sh -t Package -exclusive
-      - *save_nuget
       - save_cache:
           key: v1-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
           paths:
             - .
+
+  task_build:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - *restore_repo
+      - *generate_nuget_shasum
+      - *restore_nuget
+      - run:
+          name: Build
+          command: ./build.sh -t Build
+      - *save_nuget
+
+  task_test:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - *restore_repo
+      - *generate_nuget_shasum
+      - *restore_nuget
+      - attach_workspace:
+          at: /root/project
+      - run:
+          name: Test
+          command: ./build.sh -t Test -exclusive
+      - *save_nuget
+
+  task_package:
+    docker:
+      - image: microsoft/dotnet:2.1-sdk
+    steps:
+      - *restore_repo
+      - *generate_nuget_shasum
+      - *restore_nuget
+      - attach_workspace:
+          at: /root/project
+      - run:
+          name: Package
+          command: ./build.sh -t Package -exclusive
+      - *save_nuget
       - persist_to_workspace:
           root: /root/project
           paths:
@@ -69,13 +94,37 @@ jobs:
           at: /root/project
       - run:
           name: Deploy nuget package
-          command: ./build.sh -t Deploy -configuration=Release -packageVersion=$CIRCLE_TAG -ApiKey=$NUGET_API_KEY
+          command: ./build.sh -t Deploy -configuration=Release -packageVersion=$CIRCLE_TAG -ApiKey=$NUGET_API_KEY -exclusive
 
 workflows:
   version: 2
   cake_xcomponent:
     jobs:
-      - checkout_build:
+      - checkout_code:
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              only: /.*/
+      - task_build:
+          requires:
+          - checkout_code
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              only: /.*/
+      - task_test:
+          requires:
+          - task_build
+          filters:
+            tags:
+              only: /^[0-9]++\.[0-9]++\.[0-9]++/
+            branches:
+              only: /.*/
+      - task_package:
+          requires:
+          - task_test
           filters:
             tags:
               only: /^[0-9]++\.[0-9]++\.[0-9]++/
@@ -83,7 +132,7 @@ workflows:
               only: /.*/
       - deploy_nuget:
           requires:
-          - checkout_build
+          - task_package
           filters:
             tags:
               only: /^[0-9]++\.[0-9]++\.[0-9]++/
