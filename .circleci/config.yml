@@ -48,7 +48,12 @@ jobs:
       - *restore_nuget
       - run:
           name: Build
-          command: ./build.sh -t Build
+          command: |
+            if [ "${CIRCLE_TAG}" == "" ]; then
+              ./build.sh -t Build
+            else
+              ./build.sh -t Build -buildConfiguration=Release -buildVersion=$CIRCLE_TAG
+            fi
       - *save_nuget
       - persist_to_workspace:
           root: /root/project
@@ -66,7 +71,12 @@ jobs:
           at: /root/project
       - run:
           name: Test
-          command: ./build.sh -t Test -exclusive
+          command: |
+            if [ "${CIRCLE_TAG}" == "" ]; then
+              ./build.sh -t Test -exclusive
+            else
+              ./build.sh -t Test -buildConfiguration=Release -buildVersion=$CIRCLE_TAG -exclusive
+            fi
       - *save_nuget
 
   package:
@@ -80,7 +90,12 @@ jobs:
           at: /root/project
       - run:
           name: Package
-          command: ./build.sh -t Package -exclusive
+          command: |
+            if [ "${CIRCLE_TAG}" == "" ]; then
+              ./build.sh -t Package -exclusive
+            else
+              ./build.sh -t Package -buildConfiguration=Release -buildVersion=$CIRCLE_TAG -exclusive
+            fi
       - *save_nuget
       - persist_to_workspace:
           root: /root/project
