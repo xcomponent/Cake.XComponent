@@ -7,7 +7,7 @@
     <Description>Cake addin for XComponent</Description>
     <Copyright>Copyright 2016</Copyright>
     <PackageTags>Cake XComponent Build</PackageTags>
-    <PackageIconUrl>https://cdn.rawgit.com/cake-contrib/graphics/a5cf0f881c390650144b2243ae551d5b9f836196/png/cake-contrib-medium.png</PackageIconUrl>
+    <PackageIconUrl>https://cdn.jsdelivr.net/gh/cake-contrib/graphics/png/cake-contrib-medium.png</PackageIconUrl>
     <PackageProjectUrl>https://github.com/xcomponent/Cake.XComponent</PackageProjectUrl>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
