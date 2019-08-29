@@ -6,7 +6,7 @@ namespace Cake.XComponent
     /// <summary>
     /// Cake Extension for XComponent Build
     /// </summary>
-    [CakeAliasCategory("Cake Extension for XcBuild")]
+    [CakeAliasCategory("XCBuild")]
     public static class XcBuildAliases
     {
         /// <summary>

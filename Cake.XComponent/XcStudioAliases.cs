@@ -6,7 +6,7 @@ namespace Cake.XComponent
     /// <summary>
     /// Cake Extension for XComponent Studio
     /// </summary>
-    [CakeAliasCategory("Cake Extension for XcStudio")]
+    [CakeAliasCategory("XCStudio")]
     public static class XcStudioAliases
     {
         /// <summary>
