@@ -13,7 +13,7 @@ namespace Cake.XComponent
 
         internal XcBuild(ICakeContext context, Platform platform)
         {
-            _processCommandExecutor = new ProcessCommandExecutor(context, new PathFinder(context.Log).FindXcBuild(platform));
+            _processCommandExecutor = new ProcessCommandExecutor(context, new PathFinder(context.Log).FindXcBuild(platform), "XcBuild");
         }
 
         internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")

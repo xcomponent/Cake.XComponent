@@ -6,7 +6,8 @@ namespace Cake.XComponent
 {
     internal sealed class XcStudio
     {
-        private const string StudioBatFile = "XComponent.Studio.bat";
+        private const string DefaultRunStudioBatFile = "Run.Studio.bat";
+        private const string DefaultRunStudioPowerShellFile = "Run.Studio.ps1";
         private readonly string _xcStudioPath;
         private readonly string _xcStudioProgram;
 
@@ -16,11 +17,12 @@ namespace Cake.XComponent
             _xcStudioProgram = PathFinder.GetXcStudioProgram(platform);
         }
 
-        internal void CreateLauncher(string projectPath, string output)
+        internal void CreateBatLauncherScript(string projectPath, string outputDirectory, string scriptFileName)
         {
-            var outputDirectory = string.IsNullOrEmpty(output) ? Directory.GetCurrentDirectory() : output;
+            scriptFileName = string.IsNullOrEmpty(scriptFileName) ? DefaultRunStudioBatFile : scriptFileName;
+            outputDirectory = string.IsNullOrEmpty(outputDirectory) ? Directory.GetCurrentDirectory() : outputDirectory;
 
-            var filePath = Path.Combine(outputDirectory, StudioBatFile);
+            var filePath = Path.Combine(outputDirectory, scriptFileName);
 
             if (File.Exists(filePath))
             {
@@ -29,6 +31,24 @@ namespace Cake.XComponent
             
             File.AppendAllLines(filePath,
                 new[] {$"cd \"{Path.GetDirectoryName(_xcStudioPath)}\"", $"start {_xcStudioProgram} \"{Path.GetFullPath(projectPath)}\""});
+        }
+
+        internal void CreatePowerShellLauncherScript(string projectPath, string outputDirectory, string scriptFileName)
+        {
+            scriptFileName = string.IsNullOrEmpty(scriptFileName) ? DefaultRunStudioPowerShellFile : scriptFileName;
+            outputDirectory = string.IsNullOrEmpty(outputDirectory) ? Directory.GetCurrentDirectory() : outputDirectory;
+
+            var filePath = Path.Combine(outputDirectory, scriptFileName);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+            
+            File.AppendAllLines(filePath,
+                new[] {$"Push-Location \"{Path.GetDirectoryName(_xcStudioPath)}\"",
+                $"Start-Process {_xcStudioProgram} \"{Path.GetFullPath(projectPath)}\"",
+                "Pop-Location"});
         }
     }
 }

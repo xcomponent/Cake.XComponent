@@ -9,7 +9,7 @@ namespace Cake.XComponent
     /// <summary>
     /// Cake Extension for XComponent Applications
     /// </summary>
-    [CakeAliasCategory("XCPaths")]
+    [CakeAliasCategory("XCPath")]
     public static class XcPathAliases
     {
         /// <summary>
