@@ -9,26 +9,29 @@ namespace Cake.XComponent.Utils
     internal class ProcessCommandExecutor : ICommandExecutor
     {
         private readonly ICakeContext _context;
-        private readonly string _xcBuildPath;
+        private readonly string _processPath;
+        private readonly string _processName;
 
-        public ProcessCommandExecutor(ICakeContext context,string xcBuildPath)
+        public ProcessCommandExecutor(ICakeContext context,string programPath, string processName)
         {
             _context = context;
-            _xcBuildPath = xcBuildPath;
+            _processPath = programPath;
+            _processName = processName;
         }
 
         public void ExecuteCommand(string arguments)
         {
-            if (!File.Exists(_xcBuildPath))
+            if (!File.Exists(_processPath))
             {
-                throw new XComponentException($"XcBuild not found at {_xcBuildPath}");
+                throw new XComponentException($"{_processName} not found at {_processPath}");
             }
 
             var process = new Process
             {
                 StartInfo =
                 {
-                    FileName = _xcBuildPath,
+                    WorkingDirectory = Path.GetDirectoryName(_processName),
+                    FileName = _processPath,
                     Arguments = arguments,
                     UseShellExecute = false,
                     CreateNoWindow = true,
@@ -45,7 +48,7 @@ namespace Cake.XComponent.Utils
 
             if (process.ExitCode != 0)
             {
-                throw new XComponentException("Error executing XcBuild");
+                throw new XComponentException($"Error executing {_processName}");
             }
         }
         
