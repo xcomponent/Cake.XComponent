@@ -33,7 +33,7 @@ namespace Cake.XComponent.Test
         {
             XcBuild.TestCommandExecutor = new OkCommandExecutor();
             var cakeContext = Substitute.For<ICakeContext>();
-            cakeContext.XcBuildBuild("", "", "", "", "", platform);
+            cakeContext.XcBuildBuild("", "", "", "", "", "", platform);
         }
 
         [TestCase(Platform.X64)]
@@ -77,7 +77,7 @@ namespace Cake.XComponent.Test
         {
             XcBuild.TestCommandExecutor = new FailingCommandExecutor();
             var cakeContext = Substitute.For<ICakeContext>();
-            Assert.Throws<XComponentException>(() => cakeContext.XcBuildBuild("", "", "", "", "", platform));
+            Assert.Throws<XComponentException>(() => cakeContext.XcBuildBuild("", "", "", "", "", "", platform));
         }
 
         [TestCase(Platform.X64)]
@@ -104,7 +104,7 @@ namespace Cake.XComponent.Test
         {
             XcBuild.TestCommandExecutor = new FailingCommandExecutor();
             var cakeContext = Substitute.For<ICakeContext>();
-            Assert.Throws<XComponentException>(() => cakeContext.XcBuildBuild("", "", "", "", "--fail", platform));
+            Assert.Throws<XComponentException>(() => cakeContext.XcBuildBuild("", "", "", "", "", "--fail", platform));
         }
     }
 }
