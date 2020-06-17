@@ -16,13 +16,13 @@ namespace Cake.XComponent
             _processCommandExecutor = new ProcessCommandExecutor(context, new PathFinder(context.Log).FindXcBuild(platform), "XcBuild");
         }
 
-        internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "")
+        internal void Build(string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2019", string framework = "Framework472", string additionalArguments = "")
         {
-            var arguments = $"--build --project={project} --compilationmode={compiltationMode} --env={environment} --vs={visualStudioVersion} {additionalArguments}";
+            var arguments = $"--build --project={project} --compilationmode={compiltationMode} --env={environment} --vs={visualStudioVersion} --framework={framework} {additionalArguments}";
             GetCommandExecutor().ExecuteCommand(arguments);
         }
 
-        internal void BuildComponent(string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string framework = "Framework452", string serializationtype = "Json", string logkeys = "", string additionalArguments = "")
+        internal void BuildComponent(string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2019", string framework = "Framework472", string serializationtype = "Json", string logkeys = "", string additionalArguments = "")
         {
             var logKeysArgument = string.IsNullOrEmpty(logkeys) ? string.Empty : $"--logkeys={logkeys}";
             var arguments = $"--build --project={project} --component=\"{component}\" --compilationmode={compiltationMode} --env={environment} --vs={visualStudioVersion} --framework={framework} --serializationtype=\"{serializationtype}\" {logKeysArgument} {additionalArguments}";

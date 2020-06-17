@@ -16,13 +16,14 @@ namespace Cake.XComponent
         /// <param name="project">The project to build</param>
         /// <param name="compiltationMode">The compilation mode (Debug/Release)</param>
         /// <param name="environment">The XComponent environment (Dev/Prod/...)</param>
-        /// <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
+        /// <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015/VS2017/VS2019)</param>
+        /// <param name="framework">The version of .Net framework to use</param>
         /// <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
         /// <param name="platform">The platform used to launch the application</param>
         [CakeMethodAlias]
-        public static void XcBuildBuild(this ICakeContext context, string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string additionalArguments = "", Platform platform = Platform.X64)
+        public static void XcBuildBuild(this ICakeContext context, string project, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2019", string framework = "Framework472", string additionalArguments = "", Platform platform = Platform.X64)
         {
-            new XcBuild(context, platform).Build(project, compiltationMode, environment, visualStudioVersion, additionalArguments);
+            new XcBuild(context, platform).Build(project, compiltationMode, environment, visualStudioVersion, framework, additionalArguments);
         }
 
         /// <summary>
@@ -33,14 +34,14 @@ namespace Cake.XComponent
         /// <param name="component">Th component to build</param>
         /// <param name="compiltationMode">The compilation mode (Debug/Release)</param>
         /// <param name="environment">The XComponent environment (Dev/Prod/...)</param>
-        /// <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015)</param>
+        /// <param name="visualStudioVersion">The version of Visual Studio (VS2013/VS2015/VS2017/VS2019)</param>
         /// <param name="framework">The version of .Net framework to use</param>
         /// <param name="serializationtype">The serialization type</param>
         /// <param name="logkeys">The list of log keys used by this component</param>
         /// <param name="additionalArguments">Additional arguments to pass to XComponent Build</param>
         /// <param name="platform">The platform used to launch the application</param>
         [CakeMethodAlias]
-        public static void XcBuildBuildComponent(this ICakeContext context, string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2015", string framework = "Framework452", string serializationtype = "Json", string logkeys = "", string additionalArguments = "", Platform platform = Platform.X64)
+        public static void XcBuildBuildComponent(this ICakeContext context, string project, string component, string compiltationMode = "Debug", string environment = "Dev", string visualStudioVersion = "VS2019", string framework = "Framework472", string serializationtype = "Json", string logkeys = "", string additionalArguments = "", Platform platform = Platform.X64)
         {
             new XcBuild(context, platform).BuildComponent(project, component, compiltationMode, environment, visualStudioVersion, framework, serializationtype, logkeys, additionalArguments);
         }
