@@ -69,7 +69,7 @@ fi
 
 # Start Cake
 if $SHOW_VERSION; then
-    dotnet "$CAKE_DLL" -version
+    dotnet "$CAKE_DLL" --version
 else
-    dotnet "$CAKE_DLL" $SCRIPT -verbosity=$VERBOSITY -configuration=$CONFIGURATION -target=$TARGET $DRYRUN ${SCRIPT_ARGUMENTS[@]}
+    dotnet "$CAKE_DLL" $SCRIPT --verbosity=$VERBOSITY --configuration=$CONFIGURATION --target=$TARGET $DRYRUN ${SCRIPT_ARGUMENTS[@]}
 fi

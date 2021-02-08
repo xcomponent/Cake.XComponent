@@ -52,7 +52,7 @@ jobs:
             if [ "${CIRCLE_TAG}" == "" ]; then
               ./build.sh -t Build
             else
-              ./build.sh -t Build -buildConfiguration=Release -buildVersion=$CIRCLE_TAG
+              ./build.sh -t Build --buildConfiguration=Release --buildVersion=$CIRCLE_TAG
             fi
       - *save_nuget
       - persist_to_workspace:
@@ -73,9 +73,9 @@ jobs:
           name: Test
           command: |
             if [ "${CIRCLE_TAG}" == "" ]; then
-              ./build.sh -t Test -exclusive
+              ./build.sh -t Test --exclusive
             else
-              ./build.sh -t Test -buildConfiguration=Release -buildVersion=$CIRCLE_TAG -exclusive
+              ./build.sh -t Test --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --exclusive
             fi
       - *save_nuget
 
@@ -92,9 +92,9 @@ jobs:
           name: Package
           command: |
             if [ "${CIRCLE_TAG}" == "" ]; then
-              ./build.sh -t Package -exclusive
+              ./build.sh -t Package --exclusive
             else
-              ./build.sh -t Package -buildConfiguration=Release -buildVersion=$CIRCLE_TAG -exclusive
+              ./build.sh -t Package --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --exclusive
             fi
       - *save_nuget
       - persist_to_workspace:
@@ -113,7 +113,7 @@ jobs:
           at: /root/project
       - run:
           name: Deploy nuget package
-          command: ./build.sh -t Deploy -buildConfiguration=Release -buildVersion=$CIRCLE_TAG -nugetKey=$NUGET_API_KEY -exclusive
+          command: ./build.sh -t Deploy --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --nugetKey=$NUGET_API_KEY --exclusive
 
 workflows:
   version: 2
