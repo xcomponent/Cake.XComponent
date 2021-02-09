@@ -7,14 +7,14 @@ references:
         - v2-cakexcomponent-repo-{{ .Branch }}-{{ .Revision }}
         - v2-cakexcomponent-repo-{{ .Branch }}-
         - v2-cakexcomponent-repo-
-  
+
   restore_nuget: &restore_nuget
     restore_cache:
       name: Restore nuget cache
       keys:
-        - v2-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
-        - v2-nuget-{{ .Branch }}-
-        - v2-nuget-
+        - v3-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+        - v3-nuget-{{ .Branch }}-
+        - v3-nuget-
 
   generate_nuget_shasum: &generate_nuget_shasum
     run:
@@ -24,14 +24,14 @@ references:
   save_nuget: &save_nuget
     save_cache:
       name: Save nuget cache
-      key: v2-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
+      key: v3-nuget-{{ .Branch }}-{{ checksum "shasum.tmp" }}
       paths:
-          - /root/.nuget
+        - /root/.nuget
 
 jobs:
   checkout_code:
     docker:
-      - image: microsoft/dotnet:2.2-sdk
+      - image: mcr.microsoft.com/dotnet/sdk:3.1
     steps:
       - checkout
       - save_cache:
@@ -41,18 +41,22 @@ jobs:
 
   build:
     docker:
-      - image: microsoft/dotnet:2.2-sdk
+      - image: mcr.microsoft.com/dotnet/sdk:3.1
     steps:
       - *restore_repo
       - *generate_nuget_shasum
       - *restore_nuget
       - run:
+          name: Restore cake
+          command: |
+            dotnet tool restore --verbosity diag
+      - run:
           name: Build
           command: |
             if [ "${CIRCLE_TAG}" == "" ]; then
-              ./build.sh -t Build
+              dotnet cake --target=Build
             else
-              ./build.sh -t Build --buildConfiguration=Release --buildVersion=$CIRCLE_TAG
+              dotnet cake --target=Build --buildConfiguration=Release --buildVersion=$CIRCLE_TAG
             fi
       - *save_nuget
       - persist_to_workspace:
@@ -62,7 +66,7 @@ jobs:
 
   test:
     docker:
-      - image: microsoft/dotnet:2.2-sdk
+      - image: mcr.microsoft.com/dotnet/sdk:3.1
     steps:
       - *restore_repo
       - *generate_nuget_shasum
@@ -70,18 +74,22 @@ jobs:
       - attach_workspace:
           at: /root/project
       - run:
+          name: Restore cake
+          command: |
+            dotnet tool restore
+      - run:
           name: Test
           command: |
             if [ "${CIRCLE_TAG}" == "" ]; then
-              ./build.sh -t Test --exclusive
+              dotnet cake --target=Test --exclusive
             else
-              ./build.sh -t Test --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --exclusive
+              dotnet cake --target=Test --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --exclusive
             fi
       - *save_nuget
 
   package:
     docker:
-      - image: microsoft/dotnet:2.2-sdk
+      - image: mcr.microsoft.com/dotnet/sdk:3.1
     steps:
       - *restore_repo
       - *generate_nuget_shasum
@@ -89,12 +97,16 @@ jobs:
       - attach_workspace:
           at: /root/project
       - run:
+          name: Restore cake
+          command: |
+            dotnet tool restore
+      - run:
           name: Package
           command: |
             if [ "${CIRCLE_TAG}" == "" ]; then
-              ./build.sh -t Package --exclusive
+              dotnet cake --target=Package --exclusive
             else
-              ./build.sh -t Package --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --exclusive
+              dotnet cake --target=Package --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --exclusive
             fi
       - *save_nuget
       - persist_to_workspace:
@@ -104,7 +116,7 @@ jobs:
 
   deploy_nuget:
     docker:
-      - image: microsoft/dotnet:2.2-sdk
+      - image: mcr.microsoft.com/dotnet/sdk:3.1
     steps:
       - *restore_repo
       - *generate_nuget_shasum
@@ -113,7 +125,7 @@ jobs:
           at: /root/project
       - run:
           name: Deploy nuget package
-          command: ./build.sh -t Deploy --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --nugetKey=$NUGET_API_KEY --exclusive
+          command: dotnet cake --target=Deploy --buildConfiguration=Release --buildVersion=$CIRCLE_TAG --nugetKey=$NUGET_API_KEY --exclusive
 
 workflows:
   version: 2
@@ -127,7 +139,7 @@ workflows:
               only: /.*/
       - build:
           requires:
-          - checkout_code
+            - checkout_code
           filters:
             tags:
               only: /^[0-9]++\.[0-9]++\.[0-9]++/
@@ -135,7 +147,7 @@ workflows:
               only: /.*/
       - test:
           requires:
-          - build
+            - build
           filters:
             tags:
               only: /^[0-9]++\.[0-9]++\.[0-9]++/
@@ -143,7 +155,7 @@ workflows:
               only: /.*/
       - package:
           requires:
-          - test
+            - test
           filters:
             tags:
               only: /^[0-9]++\.[0-9]++\.[0-9]++/
@@ -151,10 +163,9 @@ workflows:
               only: /.*/
       - deploy_nuget:
           requires:
-          - package
+            - package
           filters:
             tags:
               only: /^[0-9]++\.[0-9]++\.[0-9]++/
             branches:
               ignore: /.*/
-
