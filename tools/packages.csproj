@@ -4,6 +4,6 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Cake.CoreCLR" Version="1.1.0" />
+    <PackageReference Include="Cake.CoreCLR" Version="1.3.0" />
   </ItemGroup>
 </Project>
