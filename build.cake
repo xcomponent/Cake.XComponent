@@ -1,5 +1,5 @@
 #tool "nuget:?package=NUnit.ConsoleRunner&version=3.9.0"
-#addin "nuget:?package=Cake.DoInDirectory&version=3.3.0"
+#addin "nuget:?package=Cake.DoInDirectory&version=4.0.2"
 
 var target = Argument("target", "Build");
 var configuration = Argument("buildConfiguration", "Debug");
